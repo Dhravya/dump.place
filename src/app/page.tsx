@@ -3,6 +3,7 @@ import ClaimUsernameForm from "@/components/ClaimUsernameForm";
 import { db } from "@/server/db";
 import DumpGallery from "./dumpGallery";
 import DumpForm from "./dumpform";
+import Link from "next/link";
 
 export default async function HomePage() {
   const auth = await getServerAuthSession();
@@ -18,7 +19,7 @@ export default async function HomePage() {
   });
 
   return (
-    <main className="p-4 md:p-8 w-full flex items-center justify-center">
+    <main className="flex w-full items-center justify-center p-4 md:p-8">
       <div className="flex max-w-2xl items-center justify-center ">
         <div className="flex h-full flex-col items-center">
           <h1 className="text-center text-5xl font-bold">
@@ -28,7 +29,12 @@ export default async function HomePage() {
             dump.place is a minimal place to dump your thoughts. It's like
             Twitter, but without all the noise. Dumps can be private or public.
             Public dumps are visible to everyone, while private dumps are only
-            yours. No followers, no likes, no comments, no ads, no tracking. Just <span className="font-bold italic">DUMP.</span>
+            yours. No followers, no likes, no comments, no ads, no tracking.
+            Just <span className="font-bold italic">DUMP.</span> Get{" "}
+            <Link href="https://dump.place/ios">
+              the IOS shortcut and add it to the homescreen for even faster
+              DUMPing
+            </Link>
           </h2>
 
           {auth && !auth.user.name && (
