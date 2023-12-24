@@ -1,4 +1,5 @@
 import { db } from "@/server/db";
+import { moderate } from "@/server/moderate";
 import { revalidatePath } from "next/cache";
 
 export async function POST(request: Request) {
@@ -74,6 +75,21 @@ export async function POST(request: Request) {
         status: 409,
       },
     );
+  }
+
+  if (isPublic){
+    const isOk = await moderate(content) === "OK";
+
+    console.log(isOk)
+  
+    if (!isOk) {
+      return new Response(
+        JSON.stringify({ success: "", error: "Your post was flagged by automod." }),
+        {
+          status: 403,
+        },
+      );
+    }
   }
 
   // create the post
