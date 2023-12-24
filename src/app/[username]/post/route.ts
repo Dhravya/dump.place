@@ -26,6 +26,12 @@ export async function POST(
     });
   }
 
+  if (!user.password) {
+    return new Response(JSON.stringify({ error: "User has no password." }), {
+      status: 401,
+    });
+  }
+
   // check if the password is correct
   if (user.password !== password) {
     return new Response(JSON.stringify({ error: "Incorrect password." }), {
