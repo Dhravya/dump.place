@@ -21,7 +21,7 @@ export async function handleNameSubmit(name: string, about: string, password: st
     },
   });
 
-  if (checkAvailability) {
+  if (checkAvailability?.name !== auth.user.name) {
     return {
       status: 400,
       body: {

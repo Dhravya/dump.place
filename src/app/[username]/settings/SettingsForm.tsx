@@ -28,13 +28,12 @@ export function SettingsForm({
             .value;
           const about = (document.getElementById("about") as HTMLInputElement)
             .value;
+          const password = (document.getElementById("password-1") as HTMLInputElement).value;
 
-          const password = (
-            document.getElementById("password") as HTMLInputElement
-          ).value;
+          console.log(password)
 
           let response;
-          if (name == defaultName) {
+          if (name == defaultName && !password) {
             response = await changeAbout(about);
           } else {
             response = await handleNameSubmit(name, about, password);
@@ -96,12 +95,11 @@ export function SettingsForm({
           </div>
           <Input
             type="password"
-            id="password"
+            id="password-1"
             placeholder="mystrongpassword"
             className="mt-4"
             required
           />
-          <div className="mt-2 text-red-500">{error}</div>
         </div>
 
         <Button type="submit" className="group mt-8 flex w-full gap-2">

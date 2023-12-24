@@ -1,4 +1,5 @@
 import { db } from "@/server/db";
+import { revalidatePath } from "next/cache";
 
 export async function POST(request: Request) {
   // read the body of the request
@@ -21,6 +22,8 @@ export async function POST(request: Request) {
       status: 404,
     });
   }
+
+  console.log(user)
 
   if (!user.password) {
     return new Response(JSON.stringify({ error: "User has no password." }), {
@@ -48,6 +51,8 @@ export async function POST(request: Request) {
       },
     },
   });
+
+  revalidatePath(`/@${user.name}`);
 
   return new Response(JSON.stringify({ success: true }));
 }

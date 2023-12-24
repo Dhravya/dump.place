@@ -25,7 +25,7 @@ function ClaimUsernameForm() {
           const dump = (document.getElementById("dump") as HTMLInputElement)
             .value;
           const password = (
-            document.getElementById("password") as HTMLInputElement
+            document.getElementById("password-1") as HTMLInputElement
           ).value;
 
           const response = await handleNameSubmit(name, about, password);
@@ -84,7 +84,7 @@ function ClaimUsernameForm() {
           </div>
           <Input
             type="password"
-            id="password"
+            id="password-1"
             placeholder="mystrongpassword"
             className="mt-4"
             required
