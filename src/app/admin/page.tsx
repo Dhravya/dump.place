@@ -11,6 +11,9 @@ export default async function Page() {
 
   const auth = await getServerAuthSession();
 
+  if (auth?.user.email !== "dhravyashah@gmail.com") {
+    notFound()
+  }
   const dumps = await db.dumps.findMany({
     orderBy: {
       createdAt: "desc",
