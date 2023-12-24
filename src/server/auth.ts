@@ -44,7 +44,18 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         id: user.id,
       },
-    })
+    }),
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+        if (token.sub && user.name) {
+          // convert name to lowercase and remove spaces
+          token.name = user.name.toLowerCase().replace(/\s/g, "");
+        }
+      }
+
+      return token;
+    }
   },
   adapter: PrismaAdapter(db),
   providers: [
