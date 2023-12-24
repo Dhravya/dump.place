@@ -42,6 +42,13 @@ async function NavigationMenuComp() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
+            <Link href="/public" legacyBehavior passHref>
+                <NavigationMenuLink className="text-neutral-950 dark:text-neutral-50">
+                  Public
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-2">
                   <Avatar className="h-6 w-6">
