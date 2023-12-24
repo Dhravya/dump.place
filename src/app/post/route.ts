@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   });
 
   if (!user) {
-    return new Response(JSON.stringify({ error: "User not found." }), {
+    return new Response(JSON.stringify({success: "", error: "User not found." }), {
       status: 404,
     });
   }
@@ -26,14 +26,14 @@ export async function POST(request: Request) {
   console.log(user)
 
   if (!user.password) {
-    return new Response(JSON.stringify({ error: "User has no password." }), {
+    return new Response(JSON.stringify({success: "", error: "User has no password." }), {
       status: 401,
     });
   }
 
   // check if the password is correct
   if (user.password !== password) {
-    return new Response(JSON.stringify({ error: "Incorrect password." }), {
+    return new Response(JSON.stringify({success: "true", error: "Incorrect password." }), {
       status: 401,
     });
   }
