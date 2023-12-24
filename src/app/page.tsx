@@ -51,7 +51,10 @@ export default async function HomePage() {
 
           {auth?.user.username && <DumpForm className="mt-8" />}
           {/* Show top 100 public dumps in masonry layout */}
-          <div className="mt-8 w-full">
+          <div className="mt-8 w-full flex flex-col gap-8">
+            <h2 className="text-center text-2xl font-bold">
+              Featured Dumps
+            </h2>
             <DumpGallery top100PublicDumps={top100PublicDumps} />
           </div>
         </div>
