@@ -3,7 +3,11 @@ import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
 import { revalidatePath } from "next/cache";
 
-export async function handleNameSubmit(name: string, about: string, password: string) {
+export async function handleNameSubmit(
+  name: string,
+  about: string,
+  password: string,
+) {
   const auth = await getServerAuthSession();
 
   if (!auth) {
@@ -179,12 +183,14 @@ export const deleteDump = async (id: number) => {
   }
 
   if (dump.createdById !== authuser.id) {
-    return {
-      status: 403,
-      body: {
-        error: "You do not have permission to do that.",
-      },
-    };
+    if (authuser.email != 'dhravyashah@gmail.com'){
+      return {
+        status: 403,
+        body: {
+          error: "You do not have permission to do that.",
+        },
+      };
+    }
   }
 
   await db.dumps.delete({
@@ -194,6 +200,7 @@ export const deleteDump = async (id: number) => {
   });
 
   revalidatePath(`/@${authuser.name}`);
+  revalidatePath("/admin");
 
   return {
     status: 200,

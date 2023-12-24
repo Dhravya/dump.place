@@ -34,9 +34,8 @@ function ClaimUsernameForm() {
             setError("Username already taken");
           } else if (response.status == 200) {
             setError("");
+            await createDump(dump, true);
           }
-
-          await createDump(dump, true);
         }}
       >
         <div>

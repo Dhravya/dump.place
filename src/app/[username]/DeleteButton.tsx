@@ -8,10 +8,11 @@ function DeleteButton({ id }: { id: number }) {
   return (
     <Button
       onClick={async () => {
-        if (!confirm("Are you sure you want to delete this dump?")) {
-          return;
-        }
-        await deleteDump(id);
+        // if (!confirm("Are you sure you want to delete this dump?")) {
+        //   return;
+        // }
+        const resp = await deleteDump(id);
+        console.log(resp)
       }}
       className="p-1"
       size="sm"
