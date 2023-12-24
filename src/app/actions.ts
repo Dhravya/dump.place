@@ -2,6 +2,7 @@
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
 import { revalidatePath } from "next/cache";
+import { moderate } from "@/server/moderate";
 
 export async function handleNameSubmit(
   name: string,
@@ -149,6 +150,21 @@ export async function createDump(dump: string, isPublic = true) {
         error: "You have already posted that.",
       },
     };
+  }
+
+  if (isPublic){
+    const isOk = await moderate(dump) === "OK";
+
+    console.log(isOk)
+  
+    if (!isOk) {
+      return {
+        status: 400,
+        body: {
+          error: "Your dump was not approved by automod.",
+        },
+      };
+    }
   }
 
   const newDump = await db.dumps.create({
