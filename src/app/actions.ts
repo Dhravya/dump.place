@@ -117,6 +117,27 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
+
+  // TODO: MOVE THIS TO REDIS OR OTHER BETTER SOLUTION
+  // Check if the user has made more than 4 dumps in the last 2 minutes
+  const dumps = await db.dumps.findMany({
+    where: {
+      createdById: authuser.id,
+      createdAt: {
+        gt: new Date(Date.now() - 120000),
+      },
+    },
+  });
+
+  if (dumps.length >= 10) {
+    return {
+      status: 429,
+      body: {
+        error: "You are doing that too much. Please wait a few minutes.",
+      },
+    };
+  }
+
   const newDump = await db.dumps.create({
     data: {
       content: dump,
