@@ -25,8 +25,10 @@ export default async function HomePage() {
             <span className="italic">DUMP</span> your thoughts.
           </h1>
           <h2 className="mt-4">
-            dump.place is a minimal, new notes app, organising your thought
-            dumps with time.
+            dump.place is a minimal place to dump your thoughts. It's like
+            Twitter, but without all the noise. Dumps can be private or public.
+            Public dumps are visible to everyone, while private dumps are only
+            yours. No followers, no likes, no comments, no ads, no tracking. Just <span className="font-bold italic">DUMP.</span>
           </h2>
 
           {auth && !auth.user.name && (
