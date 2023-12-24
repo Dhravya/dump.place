@@ -114,9 +114,9 @@ export default async function Page({
                     </div>
                   </div>
 
-                  <div>
+                  {auth?.user.id === user.id && (
                     <DeleteButton id={dump.id} />
-                  </div>
+                  )}
                 </div>
                 <div className="prose-slate text-md prose-h1:text-xl prose-h2:text-lg mt-4">
                   <Markdown remarkPlugins={[remarkGfm]}>
