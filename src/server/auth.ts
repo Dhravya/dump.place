@@ -38,44 +38,40 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
-    jwt: async ({ token, user }) => {
-      if (user) {
-        token.id = user.id;
-        if (token.sub && user.name) {
-          // convert name to lowercase and remove spaces
-          token.name = user.name.toLowerCase().replace(/\s/g, "");
-        }
-      }
+    session: ({ session, user }) => {
+      // remove spaces and lowercase name
+      const username = user?.name?.replace(/\s/g, "").toLowerCase() ?? "";
 
-      return token;
-    }
+      session.user.name = username;
+
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user.id,
+        },
+      };
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [
     EmailProvider({
       // from: "Dump.place <dumps@dhr.wtf>",
-      async sendVerificationRequest({identifier: email, url}) {
+      async sendVerificationRequest({ identifier: email, url }) {
         await fetch("https://worker-email.dhravya.workers.dev/api/email", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `${env.EMAIL_TOKEN}`,
+            Authorization: `${env.EMAIL_TOKEN}`,
           },
           body: JSON.stringify({
-            "to": email,
-            "from": "Dump place <dumps@dhr.wtf>",
-            "subject": "Verify your email address.",
-            "text": `Welcome to DUMP place. Click here to authenticate: ${url}`,
+            to: email,
+            from: "Dump place <dumps@dhr.wtf>",
+            subject: "Verify your email address.",
+            text: `Welcome to DUMP place. Click here to authenticate: ${url}`,
           }),
         });
-      }
+      },
     }),
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
