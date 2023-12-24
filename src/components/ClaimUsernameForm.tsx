@@ -7,6 +7,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { createDump, handleNameSubmit } from "@/app/actions";
 import { type FormEvent } from "react";
 import { Textarea } from "./ui/textarea";
+import Link from "next/link";
 
 function ClaimUsernameForm() {
   const [error, setError] = useState<string>("");
@@ -23,8 +24,11 @@ function ClaimUsernameForm() {
             .value;
           const dump = (document.getElementById("dump") as HTMLInputElement)
             .value;
+          const password = (
+            document.getElementById("password") as HTMLInputElement
+          ).value;
 
-          const response = await handleNameSubmit(name, about);
+          const response = await handleNameSubmit(name, about, password);
 
           if (response.status == 400) {
             setError("Username already taken");
@@ -68,6 +72,24 @@ function ClaimUsernameForm() {
             className="mt-4"
             placeholder="I write about my dreams and progress on my programming journey."
           />
+        </div>
+
+        <div className="mt-8">
+          <span className="text-2xl">Set a password</span>
+          <div className="mt-2 max-w-96 text-sm text-slate-400 dark:text-slate-500">
+            Passwords allow you to dump from anywhere. This is required for the{" "}
+            <Link className="text-sky-500" href="/ios">
+              ios shortcut.
+            </Link>
+          </div>
+          <Input
+            type="password"
+            id="password"
+            placeholder="mystrongpassword"
+            className="mt-4"
+            required
+          />
+          <div className="mt-2 text-red-500">{error}</div>
         </div>
 
         <div className="mt-8">

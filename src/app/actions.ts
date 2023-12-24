@@ -3,7 +3,7 @@ import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
 import { revalidatePath } from "next/cache";
 
-export async function handleNameSubmit(name: string, about: string) {
+export async function handleNameSubmit(name: string, about: string, password: string) {
   const auth = await getServerAuthSession();
 
   if (!auth) {
@@ -52,6 +52,7 @@ export async function handleNameSubmit(name: string, about: string) {
     data: {
       name,
       about,
+      password,
     },
   });
 

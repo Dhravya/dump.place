@@ -65,6 +65,7 @@ model User {
     emailVerified DateTime?
     image         String?
     about         String?
+    password      String?
     accounts      Account[]
     sessions      Session[]
     dumps         Dumps[]
