@@ -25,7 +25,7 @@ export async function handleNameSubmit(
     },
   });
 
-  if (checkAvailability?.name !== auth.user.name) {
+  if (checkAvailability && checkAvailability?.name !== auth.user.name) {
     return {
       status: 400,
       body: {

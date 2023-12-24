@@ -28,7 +28,11 @@ function ClaimUsernameForm() {
             document.getElementById("password-1") as HTMLInputElement
           ).value;
 
+          console.log(name, about, dump)
+
           const response = await handleNameSubmit(name, about, password);
+
+          console.log(response)
 
           if (response.status == 400) {
             setError("Username already taken");
