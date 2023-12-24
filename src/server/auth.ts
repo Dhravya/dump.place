@@ -58,7 +58,7 @@ export const authOptions: NextAuthOptions = {
           },
           body: JSON.stringify({
             "to": email,
-            "from": "Dump place <hi@dump.place>",
+            "from": "Dump place <dumps@dhr.wtf>",
             "subject": "Verify your email address.",
             "text": `Welcome to DUMP place. Click here to authenticate: ${url}`,
           }),
