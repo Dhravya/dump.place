@@ -37,7 +37,7 @@ export default async function HomePage() {
             </Link>
           </h2>
 
-          {auth && (!auth.user.username || auth?.user.image) && (
+          {auth && !auth.user.username && (
               <div className="mt-16">
                 <ClaimUsernameForm />
               </div>

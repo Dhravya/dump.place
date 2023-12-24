@@ -53,7 +53,7 @@ async function NavigationMenuComp() {
                     </AvatarFallback>
                   </Avatar>
                   <span className="hidden md:block">
-                    {auth.user.name ?? auth.user.email}
+                    {auth.user.username ?? auth.user.email}
                   </span>{" "}
                   <ChevronDownIcon />
                 </DropdownMenuTrigger>
@@ -61,8 +61,8 @@ async function NavigationMenuComp() {
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    {auth.user.name ? (
-                      `@${auth.user.name}`
+                    {auth.user.username ? (
+                      `@${auth.user.username}`
                     ) : (
                       <span className="italic text-neutral-950 dark:text-neutral-50">
                         No name set
@@ -71,7 +71,7 @@ async function NavigationMenuComp() {
                   </DropdownMenuItem>
                   <DropdownMenuItem>{auth.user.email}</DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link className="h-full w-full" href={`/@${auth.user.name}/settings`}>Settings</Link>
+                    <Link className="h-full w-full" href={`/@${auth.user.username}/settings`}>Settings</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <LogoutButton className="w-full" />
