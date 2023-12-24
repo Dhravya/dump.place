@@ -52,6 +52,13 @@ export const authOptions: NextAuthOptions = {
         },
       };
     },
+    jwt: async ({ token,  isNewUser }) => {
+      if (isNewUser) {
+        token.name = ""
+      }
+
+      return token;
+    }
   },
   adapter: PrismaAdapter(db),
   providers: [
