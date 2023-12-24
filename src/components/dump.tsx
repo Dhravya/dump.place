@@ -1,5 +1,3 @@
-"use client";
-
 import { type Dumps } from "@prisma/client";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Avatar } from "./ui/avatar";

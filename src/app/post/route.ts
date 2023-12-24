@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     data: {
       content,
       isPrivate: !isPublic,
-      createdByName: user.name ?? "Anonymous",
+      createdByName: user.name ?? user.email?.split("@")[0] ?? "Anonymous",
       createdBy: {
         connect: {
           id: user.id,
