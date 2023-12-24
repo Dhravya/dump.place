@@ -5,13 +5,14 @@ import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Avatar } from "./ui/avatar";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Link from "next/link";
 
 export function Dump({ dump }: { dump: Dumps }) {
   return (
     <div className="rounded-xl border p-4 dark:border-gray-500">
       <div className="flex items-center justify-between gap-2">
         <div className="flex flex-col">
-          <div className="flex items-center gap-2">
+          <Link href={`/@${dump.createdByName}`} className="flex items-center gap-2">
             <Avatar className="h-6 w-6">
               <AvatarImage src={`/@${dump.createdByName}/pfp`} />
               <AvatarFallback>{dump.createdByName.slice(0, 2)}</AvatarFallback>
@@ -31,7 +32,7 @@ export function Dump({ dump }: { dump: Dumps }) {
                 })}
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="mt-4 prose-slate text-md prose-h1:text-xl prose-h2:text-lg ">
