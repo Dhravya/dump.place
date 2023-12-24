@@ -119,7 +119,7 @@ export async function createDump(dump: string, isPublic = true) {
 
 
   // TODO: MOVE THIS TO REDIS OR OTHER BETTER SOLUTION
-  // Check if the user has made more than 4 dumps in the last 2 minutes
+  // Check if the user has made more than 2 dumps in the last 2 minutes
   const dumps = await db.dumps.findMany({
     where: {
       createdById: authuser.id,
@@ -129,7 +129,7 @@ export async function createDump(dump: string, isPublic = true) {
     },
   });
 
-  if (dumps.length >= 4) {
+  if (dumps.length >=  2) {
     return {
       status: 429,
       body: {

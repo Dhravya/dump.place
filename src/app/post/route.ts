@@ -18,24 +18,51 @@ export async function POST(request: Request) {
   });
 
   if (!user) {
-    return new Response(JSON.stringify({success: "", error: "User not found." }), {
-      status: 404,
-    });
+    return new Response(
+      JSON.stringify({ success: "", error: "User not found." }),
+      {
+        status: 404,
+      },
+    );
   }
 
-  console.log(user)
+  console.log(user);
 
   if (!user.password) {
-    return new Response(JSON.stringify({success: "", error: "User has no password." }), {
-      status: 401,
-    });
+    return new Response(
+      JSON.stringify({ success: "", error: "User has no password." }),
+      {
+        status: 401,
+      },
+    );
   }
 
   // check if the password is correct
   if (user.password !== password) {
-    return new Response(JSON.stringify({success: "true", error: "Incorrect password." }), {
-      status: 401,
-    });
+    return new Response(
+      JSON.stringify({ success: "true", error: "Incorrect password." }),
+      {
+        status: 401,
+      },
+    );
+  }
+
+  const dumps = await db.dumps.findMany({
+    where: {
+      createdById: user.id,
+      createdAt: {
+        gt: new Date(Date.now() - 120000),
+      },
+    },
+  });
+
+  if (dumps.length >= 2) {
+    return new Response(
+      JSON.stringify({ success: "", error: "You are posting too fast." }),
+      {
+        status: 429,
+      },
+    );
   }
 
   // create the post
