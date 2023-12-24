@@ -41,7 +41,7 @@ export default async function HomePage() {
               <div className="mt-16">
                 <ClaimUsernameForm />
               </div>
-            ))}
+            )}
 
           {auth?.user.name && <DumpForm className="mt-8" />}
 
