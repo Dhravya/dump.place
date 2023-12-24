@@ -8,12 +8,7 @@ import { withHydrationOverlay } from "@builder.io/react-hydration-overlay/next";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    // TODO: Remove this once project is passing ESLint checks in both dev and prod
-    ignoreDuringBuilds: true,
-  },
+  
 };
 
 export default withHydrationOverlay({

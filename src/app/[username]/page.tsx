@@ -65,7 +65,7 @@ export default async function Page({
             <div>
               <p>You don't have any dumps yet.</p>
             </div>
-          ) : auth?.user.id !== user.id ? (
+          ) : dumps.length === 0 && auth?.user.id !== user.id ? (
             <p>{user.name} doesn't have any public dumps yet.</p>
           ) : null}
         </div>
