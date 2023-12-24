@@ -65,6 +65,17 @@ export async function POST(request: Request) {
     );
   }
 
+  const sameDump = dumps.find((d) => d.content === content);
+
+  if (sameDump) {
+    return {
+      status: 400,
+      body: {
+        error: "You have already posted that.",
+      },
+    };
+  }
+
   // create the post
   await db.dumps.create({
     data: {

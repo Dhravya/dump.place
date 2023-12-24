@@ -139,6 +139,18 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
+  // if any of the dumps content is the same, return an error
+  const sameDump = dumps.find((d) => d.content === dump);
+
+  if (sameDump) {
+    return {
+      status: 400,
+      body: {
+        error: "You have already posted that.",
+      },
+    };
+  }
+
   const newDump = await db.dumps.create({
     data: {
       content: dump,

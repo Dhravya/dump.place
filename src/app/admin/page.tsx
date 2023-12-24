@@ -1,8 +1,6 @@
 import { db } from "@/server/db";
 import { notFound } from "next/navigation";
 import { getServerAuthSession } from "@/server/auth";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import DumpForm from "../dumpform";
 import DeleteButton from "../[username]/DeleteButton";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
