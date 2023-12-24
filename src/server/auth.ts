@@ -52,9 +52,18 @@ export const authOptions: NextAuthOptions = {
         },
       };
     },
-    jwt: async ({ token,  isNewUser }) => {
+    jwt: async ({ token,  isNewUser, user }) => {
       if (isNewUser) {
         token.name = ""
+
+        await db.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            name: token.name,
+          },
+        });
       }
 
       return token;
