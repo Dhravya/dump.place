@@ -37,11 +37,13 @@ export default async function HomePage() {
             </Link>
           </h2>
 
-          {auth && !auth.user.name && (
-            <div className="mt-16">
-              <ClaimUsernameForm />
-            </div>
-          )}
+          {(auth && !auth.user.name) ??
+            auth?.user.name?.includes(" ") ??
+            (!auth?.user.name?.matchAll(/([A-Z])/g) && (
+              <div className="mt-16">
+                <ClaimUsernameForm />
+              </div>
+            ))}
 
           {auth?.user.name && <DumpForm className="mt-8" />}
 

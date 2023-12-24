@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         id: user.id,
       },
-    }),
+    })
   },
   adapter: PrismaAdapter(db),
   providers: [
