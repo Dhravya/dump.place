@@ -16,7 +16,7 @@ async function Page() {
   return (
     <main className="flex w-full items-center justify-center p-4 md:p-8">
       <div className="flex max-w-2xl items-center justify-center ">
-        <div className="flex h-full flex-col items-center border border-red-500 w-full">
+        <div className="flex h-full flex-col items-center  w-full">
           <h1 className="w-full text-center text-5xl font-bold">
             public <span className="italic">DUMPS</span>
           </h1>
