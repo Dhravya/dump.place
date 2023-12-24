@@ -31,7 +31,7 @@ export default async function HomePage() {
             Public dumps are visible to everyone, while private dumps are only
             yours. No followers, no likes, no comments, no ads, no tracking.
             Just <span className="font-bold italic">DUMP.</span> Get{" "}
-            <Link href="https://dump.place/ios">
+            <Link className="text-sky-500" href="https://dump.place/ios">
               the IOS shortcut and add it to the homescreen for even faster
               DUMPing
             </Link>
