@@ -7,8 +7,8 @@ export async function GET(
   const username = params.username.slice(1);
 
   const email = await db.user
-    .findUnique({
-      where: { name: username },
+    .findFirst({
+      where: { username },
       select: { email: true },
     })
     .then((user) => user?.email);

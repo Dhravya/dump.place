@@ -19,9 +19,9 @@ export async function handleNameSubmit(
     };
   }
 
-  const checkAvailability = await db.user.findUnique({
+  const checkAvailability = await db.user.findFirst({
     where: {
-      name,
+      username: name,
     },
   });
 

@@ -7,7 +7,7 @@ export async function GET(
 ) {
   const username = params.username.slice(1);
 
-  const user = await db.user.findUnique({
+  const user = await db.user.findFirst({
     where: { username },
   });
 

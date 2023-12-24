@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   };
 
   // check if the user exists
-  const user = await db.user.findUnique({
+  const user = await db.user.findFirst({
     where: {
       username,
     },
