@@ -8,7 +8,7 @@ export async function GET(
   const username = params.username.slice(1);
 
   const user = await db.user.findUnique({
-    where: { name: username },
+    where: { username },
   });
 
   if (!user) {
@@ -18,11 +18,11 @@ export async function GET(
   }
 
   const feedOptions = {
-    title: `${user.name}'s thought dump`,
+    title: `${user.username}'s thought dump`,
     description: user.about ?? "A thought dump",
     site_url: "https://dump.place",
-    feed_url: `https://dump.place/@${user.name}/rss.xml`,
-    image_url: `https://dump.place/@${user.name}/pfp`,
+    feed_url: `https://dump.place/@${user.username}/rss.xml`,
+    image_url: `https://dump.place/@${user.username}/pfp`,
     pubDate: new Date(),
   };
 
@@ -36,9 +36,9 @@ export async function GET(
 
   posts.forEach((post) => {
     feed.item({
-      title: `${user.name}'s Dump #${post.id}`,
+      title: `${user.username}'s Dump #${post.id}`,
       description: post.content,
-      url: `https://dump.place/@${user.name}?dump=${post.id}`,
+      url: `https://dump.place/@${user.username}?dump=${post.id}`,
       guid: `${post.id}`,
       date: post.createdAt,
     });

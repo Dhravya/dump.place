@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   // check if the user exists
   const user = await db.user.findUnique({
     where: {
-      name: username,
+      username,
     },
   });
 
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
     data: {
       content,
       isPrivate: !isPublic,
-      createdByName: user.name ?? user.email?.split("@")[0] ?? "Anonymous",
+      createdByName: user.username ?? user.email?.split("@")[0] ?? "Anonymous",
       createdBy: {
         connect: {
           id: user.id,
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     },
   });
 
-  revalidatePath(`/@${user.name}`);
+  revalidatePath(`/@${user.username}`);
 
   return new Response(JSON.stringify({ success: true }));
 }

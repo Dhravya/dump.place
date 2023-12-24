@@ -37,13 +37,13 @@ export default async function HomePage() {
             </Link>
           </h2>
 
-          {auth && (!auth.user.name || auth?.user.image) && (
+          {auth && (!auth.user.username || auth?.user.image) && (
               <div className="mt-16">
                 <ClaimUsernameForm />
               </div>
             )}
 
-          {auth?.user.name && <DumpForm className="mt-8" />}
+          {auth?.user.username && <DumpForm className="mt-8" />}
 
           {/* Show top 100 public dumps in masonry layout */}
           <div className="mt-8 w-full">

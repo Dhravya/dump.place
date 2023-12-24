@@ -14,7 +14,7 @@ export default async function Settings({
   // Get user from database
   const user = await db.user.findFirst({
     where: {
-      name: username,
+      username,
     },
   });
 
@@ -33,7 +33,7 @@ export default async function Settings({
     <div className="flex flex-col items-center justify-center">
       <h1 className="mb-8 text-5xl">Settings</h1>{" "}
       <SettingsForm
-        defaultName={user.name ?? ""}
+        defaultName={user.username ?? ""}
         defaultAbout={user.about ?? ""}
       />
     </div>

@@ -9,7 +9,7 @@ async function Me() {
         redirect('/')
     }
 
-    redirect(`/@${auth.user.name}`)
+    redirect(`/@${auth.user.username}`)
   return (
     <div>Redirecting you...</div>
   )

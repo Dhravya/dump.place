@@ -25,7 +25,7 @@ export async function handleNameSubmit(
     },
   });
 
-  if (checkAvailability && checkAvailability?.name !== auth.user.name) {
+  if (checkAvailability && checkAvailability?.username !== auth.user.username) {
     return {
       status: 400,
       body: {
@@ -55,6 +55,7 @@ export async function handleNameSubmit(
     },
     data: {
       name,
+      username : name.toLowerCase().replace(/ /g, "-"),
       about,
       password,
     },
@@ -142,7 +143,7 @@ export async function createDump(dump: string, isPublic = true) {
     data: {
       content: dump,
       isPrivate: !isPublic,
-      createdByName: authuser.name ?? "Anonymous",
+      createdByName: authuser.username ?? "Anonymous",
       createdBy: {
         connect: {
           id: authuser.id,
@@ -151,7 +152,7 @@ export async function createDump(dump: string, isPublic = true) {
     },
   });
 
-  revalidatePath(`/@${authuser.name}`);
+  revalidatePath(`/@${authuser.username}`);
 
   return {
     status: 200,
@@ -220,7 +221,7 @@ export const deleteDump = async (id: number) => {
     },
   });
 
-  revalidatePath(`/@${authuser.name}`);
+  revalidatePath(`/@${authuser.username}`);
   revalidatePath("/admin");
 
   return {
@@ -267,7 +268,7 @@ export const changeAbout = async (about: string) => {
     },
   });
 
-  revalidatePath(`/@${authuser.name}`);
+  revalidatePath(`/@${authuser.username}`);
 
   return {
     status: 200,

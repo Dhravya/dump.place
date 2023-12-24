@@ -20,15 +20,17 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      username: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    // ...other properties
+    // role: UserRole;
+    username: string
+  }
 }
 
 /**
@@ -39,35 +41,15 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => {
-      // remove spaces and lowercase name
-      const username = user?.name?.replace(/\s/g, "").toLowerCase() ?? "";
-
-      session.user.name = username;
-
       return {
         ...session,
         user: {
           ...session.user,
           id: user.id,
+          username: user.username,
         },
-      };
-    },
-    jwt: async ({ token,  isNewUser, user }) => {
-      if (isNewUser) {
-        token.name = ""
-
-        await db.user.update({
-          where: {
-            id: user.id,
-          },
-          data: {
-            name: token.name,
-          },
-        });
       }
-
-      return token;
-    }
+    },
   },
   adapter: PrismaAdapter(db),
   providers: [

@@ -17,7 +17,7 @@ export default async function Page({
   // Get user from database
   const user = await db.user.findFirst({
     where: {
-      name: username,
+      username,
     },
   });
 
@@ -53,9 +53,9 @@ export default async function Page({
         <div className="flex flex-col items-center justify-center">
           <Avatar className="h-24 w-24">
             <AvatarImage src={`https://unavatar.io/${user.email}`} />
-            <AvatarFallback>{user.name!.slice(0, 2)}</AvatarFallback>
+            <AvatarFallback>{user.username!.slice(0, 2)}</AvatarFallback>
           </Avatar>
-          <h1 className="mt-2 text-5xl">{user.name}</h1>
+          <h1 className="mt-2 text-5xl">{user.username}</h1>
           <p className="text-md mt-4 text-slate-400 dark:text-slate-500">
             {user.about}
           </p>
@@ -68,7 +68,7 @@ export default async function Page({
               <p>You don't have any dumps yet.</p>
             </div>
           ) : dumps.length === 0 && auth?.user.id !== user.id ? (
-            <p>{user.name} doesn't have any public dumps yet.</p>
+            <p>{user.username} doesn't have any public dumps yet.</p>
           ) : null}
         </div>
 
