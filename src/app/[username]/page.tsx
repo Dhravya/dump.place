@@ -4,6 +4,8 @@ import { getServerAuthSession } from "@/server/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DumpForm from "../dumpform";
 import DeleteButton from "./DeleteButton";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default async function Page({
   params,
@@ -116,7 +118,11 @@ export default async function Page({
                     <DeleteButton id={dump.id} />
                   </div>
                 </div>
-                <div className="mt-4 text-lg">{dump.content}</div>
+                <div className="prose-slate text-md prose-h1:text-xl prose-h2:text-lg mt-4">
+                  <Markdown remarkPlugins={[remarkGfm]}>
+                    {dump.content}
+                  </Markdown>
+                </div>
               </div>
             </li>
           ))}

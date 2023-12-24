@@ -25,8 +25,7 @@ function DumpForm({ className }: { className?: string }) {
         await createDump(dump, isPublic);
 
         // Clear input
-        (document.getElementById("dumpcontent") as HTMLInputElement).value =
-          "";
+        (document.getElementById("dumpcontent") as HTMLInputElement).value = "";
       }}
       className={`mt-4 w-full ${className}`}
     >

@@ -18,8 +18,8 @@ export default async function HomePage() {
   });
 
   return (
-    <main className="p-4 md:p-8">
-      <div className="flex w-full items-center justify-center">
+    <main className="p-4 md:p-8 w-full flex items-center justify-center">
+      <div className="flex max-w-2xl items-center justify-center ">
         <div className="flex h-full flex-col items-center">
           <h1 className="text-center text-5xl font-bold">
             <span className="italic">DUMP</span> your thoughts.

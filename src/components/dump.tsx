@@ -3,10 +3,12 @@
 import { type Dumps } from "@prisma/client";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Avatar } from "./ui/avatar";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export function Dump({ dump }: { dump: Dumps }) {
   return (
-    <div className="w-full rounded-xl border p-4 dark:border-gray-500">
+    <div className="rounded-xl border p-4 dark:border-gray-500">
       <div className="flex items-center justify-between gap-2">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
@@ -32,7 +34,9 @@ export function Dump({ dump }: { dump: Dumps }) {
           </div>
         </div>
       </div>
-      <div className="mt-4 text-lg">{dump.content}</div>
+      <div className="mt-4 prose-slate text-md prose-h1:text-xl prose-h2:text-lg ">
+        <Markdown remarkPlugins={[remarkGfm]}>{dump.content}</Markdown>
+      </div>
     </div>
   );
 }
