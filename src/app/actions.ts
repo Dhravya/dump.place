@@ -129,7 +129,7 @@ export async function createDump(dump: string, isPublic = true) {
     },
   });
 
-  if (dumps.length >= 10) {
+  if (dumps.length >= 4) {
     return {
       status: 429,
       body: {
