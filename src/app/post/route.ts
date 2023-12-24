@@ -1,15 +1,11 @@
 import { db } from "@/server/db";
 
-export async function POST(
-  request: Request,
-  { params }: { params: { username: string } },
-) {
-  const username = params.username.slice(1);
-
+export async function POST(request: Request) {
   // read the body of the request
-  const { password, content, isPublic } = (await request.json()) as {
+  const { password, content, username, isPublic } = (await request.json()) as {
     password: string;
     content: string;
+    username: string;
     isPublic: boolean;
   };
 
