@@ -77,12 +77,11 @@ export async function POST(request: Request) {
     );
   }
 
-  if (isPublic){
-    const isOk = await moderate(content) === "OK";
+  if (isPublic) {
+    const isOk = await moderate(content) as string;
 
-    console.log(isOk)
-  
-    if (!isOk) {
+
+    if (isOk.includes("SPAM")) {
       return new Response(
         JSON.stringify({ success: "", error: "Your post was flagged by automod." }),
         {

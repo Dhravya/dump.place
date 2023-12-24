@@ -153,11 +153,11 @@ export async function createDump(dump: string, isPublic = true) {
   }
 
   if (isPublic){
-    const isOk = await moderate(dump) === "OK";
+    const isOk = await moderate(dump) as string;
 
     console.log(isOk)
-  
-    if (!isOk) {
+
+    if (isOk.includes("SPAM")) {
       return {
         status: 400,
         body: {
