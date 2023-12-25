@@ -29,7 +29,7 @@ export async function GET(
   const feed = new RSS(feedOptions);
 
   const posts = await db.dumps.findMany({
-    where: { createdById: user.id },
+    where: { createdById: user.id, isPrivate: false },
     orderBy: { createdAt: "desc" },
     take: 50,
   });

@@ -8,15 +8,10 @@ import Link from "next/link";
 export default async function HomePage() {
   const auth = await getServerAuthSession();
 
-  const authorized_users = ["dhravya", "Luke", "ankur", "yxsh", "kakashifr"];
-
   // Get all public dumps from authorized users
   const top100PublicDumps = await db.dumps.findMany({
     where: {
       isPrivate: false,
-      createdByName: {
-        in: authorized_users,
-      },
     },
     orderBy: {
       createdAt: "desc",
@@ -52,7 +47,7 @@ export default async function HomePage() {
           {auth?.user.username && <DumpForm className="mt-8" />}
           {/* Show top 100 public dumps in masonry layout */}
           <div className="mt-8 flex w-full flex-col gap-8">
-            <h2 className="text-center text-2xl font-bold">Featured Dumps</h2>
+            <h2 className="text-center text-2xl font-bold">public <span className="italic">DUMPS</span></h2>
             <DumpGallery top100PublicDumps={top100PublicDumps} />
           </div>
         </div>
