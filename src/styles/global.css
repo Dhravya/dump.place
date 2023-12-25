@@ -65,6 +65,10 @@
     --ring: 24 5.7% 82.9%;
   }
 }
+
+:root {
+  --bouncy: cubic-bezier(0.67, -0.12, 0.4, 1.2);
+}
  
 @layer base {
   * {
@@ -78,11 +82,11 @@
 .loader {
   @apply fixed z-50 top-0 left-0 h-[2px] rounded-full bg-white;
 
-  transition: width 1s ease-in-out, color 0.3s ease-in-out;
+  transition: width 1s var(--bouncy), color 0.3s var(--bouncy);
 }
 
 .loader.loading {
-  animation: loading 3s 1s ease-in-out forwards;
+  animation: loading 3s var(--bouncy) forwards;
 }
 
 @keyframes loading {
@@ -103,4 +107,72 @@
 .loader.complete {
   @apply w-screen;
   animation: none;
+}
+
+.dump {
+  position: relative;
+}
+
+.dump.confirm-delete {
+  @apply border-none;
+}
+
+.psuedo-dump {
+  @apply absolute top-[50%] left-[50%] w-full h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-md opacity-0;
+
+  transition: all 0.5s var(--bouncy);
+}
+
+.dump.confirm-delete .psuedo-dump {
+  @apply top-[15%] left-[50%] w-[15px] h-[15px] bg-border rounded-full;
+
+  animation: ball 0.5s ease-in-out forwards;
+}
+
+@keyframes ball {
+  to {
+    opacity: 1;
+  }
+}
+
+.bin {
+  @apply relative z-50;
+
+  transition: all 0.3s ease, background-color 0s;
+}
+
+.bin.confirm {
+  transform: translate(var(--x), var(--y)) scale(2);
+
+  pointer-events: none;
+}
+
+.lid.open {
+  transform: rotate(135deg);
+}
+
+.lid {
+  transform-origin: bottom right;
+
+  translate: 0 1px;
+
+  transition: transform 0.3s var(--bouncy);
+}
+
+.confirm-btn-y, .confirm-btn-n {
+  @apply px-3 py-1 rounded-full text-sm scale-0;
+
+  transition: background-color 0.3s, color 0.3s, transform 0.3s var(--bouncy);
+}
+
+.confirm-btn-y.on, .confirm-btn-n.on {
+  @apply scale-100;
+}
+
+.confirm-btn-y:hover {
+  @apply bg-destructive/20 text-destructive;
+}
+
+.confirm-btn-n:hover {
+  @apply bg-primary/20 text-primary;
 }

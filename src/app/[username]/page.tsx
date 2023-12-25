@@ -3,9 +3,7 @@ import { notFound } from "next/navigation";
 import { getServerAuthSession } from "@/server/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DumpForm from "../dumpform";
-import DeleteButton from "./DeleteButton";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import UserDump from "./userdump";
 
 export default async function Page({
   params,
@@ -77,53 +75,7 @@ export default async function Page({
         <ul className="gap-4">
           {dumps.map((dump) => (
             <li className="w-full" key={dump.id}>
-              <div className="mt-8 rounded-xl border p-4 dark:border-gray-500">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex flex-col">
-                    <div className="flex text-sm text-gray-500 dark:text-gray-400">
-                      {new Date(dump.createdAt).toLocaleString("en-US", {
-                        day: "numeric",
-                        month: "long",
-                      })}
-                      {"  "}
-                      {new Date(dump.createdAt).toLocaleString("en-US", {
-                        hour: "numeric",
-                        minute: "numeric",
-                        hour12: true,
-                      })}
-
-                      {dump.isPrivate && auth?.user.id === user.id ? (
-                        <>
-                          <span className="mx-2">•</span>
-                          <span className="inline-flex">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 16 16"
-                              fill="currentColor"
-                              className="h-4 w-4"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7V4.5A3.5 3.5 0 0 0 8 1Zm2 6V4.5a2 2 0 1 0-4 0V7h4Z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  {auth?.user.id === user.id && (
-                    <DeleteButton id={dump.id} />
-                  )}
-                </div>
-                <div className="prose-slate text-md prose-h1:text-xl prose-h2:text-lg mt-4">
-                  <Markdown remarkPlugins={[remarkGfm]}>
-                    {dump.content}
-                  </Markdown>
-                </div>
-              </div>
+              <UserDump {...{ dump, auth, user }} />
             </li>
           ))}
         </ul>
@@ -131,3 +83,5 @@ export default async function Page({
     </div>
   );
 }
+
+
