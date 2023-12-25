@@ -4,30 +4,24 @@ import { db } from "@/server/db";
 import DumpGallery from "./dumpGallery";
 import DumpForm from "./dumpform";
 import Link from "next/link";
-import { type Dumps } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { tryCatch } from "@/lib/utils";
 
 export default async function HomePage() {
   const auth = await getServerAuthSession();
 
-  let dumps: Dumps[] = [];
 
-  try {
-    // Get all public dumps from authorized users
-    const top100PublicDumps = await db.dumps.findMany({
-      where: {
-        isPrivate: false,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-      take: 100,
-    });
-    dumps = top100PublicDumps;
-    revalidatePath('/')
-  } catch (error) {
-    console.error(error);
-  }
+  // Get all public dumps from authorized users
+  const top100PublicDumps = await tryCatch(async () =>
+  await db.dumps.findMany({
+    where: {
+      isPrivate: false,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 100,
+  }), []
+  );
 
   return (
     <main className="flex w-full items-center justify-center p-4 md:p-8">
@@ -60,7 +54,7 @@ export default async function HomePage() {
             <h2 className="text-center text-2xl font-bold">
               public <span className="italic">DUMPS</span>
             </h2>
-            <DumpGallery top100PublicDumps={dumps} />
+            <DumpGallery top100PublicDumps={top100PublicDumps} />
           </div>
         </div>
       </div>
