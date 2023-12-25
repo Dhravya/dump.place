@@ -5,6 +5,7 @@ import DumpGallery from "./dumpGallery";
 import DumpForm from "./dumpform";
 import Link from "next/link";
 import { type Dumps } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export default async function HomePage() {
   const auth = await getServerAuthSession();
@@ -23,6 +24,7 @@ export default async function HomePage() {
       take: 100,
     });
     dumps = top100PublicDumps;
+    revalidatePath('/')
   } catch (error) {
     console.error(error);
   }
