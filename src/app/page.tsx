@@ -4,20 +4,28 @@ import { db } from "@/server/db";
 import DumpGallery from "./dumpGallery";
 import DumpForm from "./dumpform";
 import Link from "next/link";
+import { type Dumps } from "@prisma/client";
 
 export default async function HomePage() {
   const auth = await getServerAuthSession();
 
-  // Get all public dumps from authorized users
-  const top100PublicDumps = await db.dumps.findMany({
-    where: {
-      isPrivate: false,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 100,
-  });
+  let dumps: Dumps[] = [];
+
+  try {
+    // Get all public dumps from authorized users
+    const top100PublicDumps = await db.dumps.findMany({
+      where: {
+        isPrivate: false,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 100,
+    });
+    dumps = top100PublicDumps;
+  } catch (error) {
+    console.error(error);
+  }
 
   return (
     <main className="flex w-full items-center justify-center p-4 md:p-8">
@@ -47,8 +55,10 @@ export default async function HomePage() {
           {auth?.user.username && <DumpForm className="mt-8" />}
           {/* Show top 100 public dumps in masonry layout */}
           <div className="mt-8 flex w-full flex-col gap-8">
-            <h2 className="text-center text-2xl font-bold">public <span className="italic">DUMPS</span></h2>
-            <DumpGallery top100PublicDumps={top100PublicDumps} />
+            <h2 className="text-center text-2xl font-bold">
+              public <span className="italic">DUMPS</span>
+            </h2>
+            <DumpGallery top100PublicDumps={dumps} />
           </div>
         </div>
       </div>
