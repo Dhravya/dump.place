@@ -104,6 +104,16 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
+  // Check length of dump
+  if (dump.length > 700) {
+    return {
+      status: 400,
+      body: {
+        error: "Dump is too long.",
+      },
+    };
+  }
+
   const authuser = await db.user.findUnique({
     where: {
       id: auth.user.id,

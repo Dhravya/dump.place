@@ -11,6 +11,15 @@ export async function POST(request: Request) {
     isPublic: boolean;
   };
 
+  if (content.length > 700) {
+    return new Response(
+      JSON.stringify({ success: "", error: "Your post is too long." }),
+      {
+        status: 413,
+      },
+    );
+  }
+
   // check if the user exists
   const user = await db.user.findFirst({
     where: {
