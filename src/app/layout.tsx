@@ -23,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`dark font-sans ${inter.variable}`}>
+        <div className="loader" />
         <HydrationOverlay>
           <NavigationMenuComp />
           {children}

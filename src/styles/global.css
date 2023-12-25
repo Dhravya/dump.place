@@ -74,3 +74,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+.loader {
+  @apply fixed z-50 top-0 left-0 h-[2px] rounded-full bg-white;
+
+  transition: width 1s ease-in-out, color 0.3s ease-in-out;
+}
+
+.loader.loading {
+  animation: loading 3s 1s ease-in-out forwards;
+}
+
+@keyframes loading {
+  0% {
+    @apply w-0;
+  }
+  30% {
+    @apply w-[60vw];
+  }
+  70% {
+    @apply w-[60vw];
+  }
+  100% {
+    @apply w-[80vw];
+  }
+}
+
+.loader.complete {
+  @apply w-screen;
+  animation: none;
+}
