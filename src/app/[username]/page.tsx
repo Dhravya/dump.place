@@ -74,7 +74,7 @@ export default async function Page({
 
         <ul className="gap-4">
           {dumps.map((dump) => (
-            <li ref={parent} className="w-full" key={dump.id}>
+            <li className="w-full" key={dump.id}>
               <UserDump key={dump.id} {...{ dump, auth, user }} />
             </li>
           ))}
