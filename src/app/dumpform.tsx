@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 function DumpForm({ className }: { className?: string }) {
 
   const [isDumping, setIsDumping] = useState(false);
-  const inputRef = useRef<HTMLFormElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const submitDump = async (e: FormEvent) => {
     e.preventDefault();
