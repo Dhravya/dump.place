@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, useEffect, useRef } from "react";
 import { createDump } from "./actions";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -10,40 +10,64 @@ import { Label } from "@/components/ui/label";
 function DumpForm({ className }: { className?: string }) {
 
   const [isDumping, setIsDumping] = useState(false);
+  const inputRef = useRef<HTMLFormElement>(null);
+
+  const submitDump = async (e: FormEvent) => {
+    e.preventDefault();
+
+    setIsDumping(true);
+    document.querySelector(".loader")!.classList.add("loading");
+
+    const dump = (
+      document.getElementById("dumpcontent") as HTMLInputElement
+    ).value;
+
+    const isPublic =
+      (
+        document.getElementById("isPrivate") as HTMLInputElement
+      ).getAttribute("data-state") == "checked";
+
+    await createDump(dump, isPublic);
+
+    // Clear input
+    (document.getElementById("dumpcontent") as HTMLInputElement).value = "";
+
+    setIsDumping(false);
+    document.querySelector(".loader")!.classList.add("complete");
+    document.querySelector(".loader")!.classList.remove("loading");
+    
+    setTimeout(() => {
+      document.querySelector(".loader")!.classList.remove("complete");
+    }, 1000);
+  }
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if ((/[a-zA-Z]/).test(e.key) && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+        
+        inputRef.current!.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    }
+  }, [])
 
   return (
     <form
-      onSubmit={async (e: FormEvent) => {
-        e.preventDefault();
-
-        setIsDumping(true);
-        document.querySelector(".loader")!.classList.add("loading");
-
-        const dump = (
-          document.getElementById("dumpcontent") as HTMLInputElement
-        ).value;
-
-        const isPublic =
-          (
-            document.getElementById("isPrivate") as HTMLInputElement
-          ).getAttribute("data-state") == "checked";
-
-        await createDump(dump, isPublic);
-
-        // Clear input
-        (document.getElementById("dumpcontent") as HTMLInputElement).value = "";
-
-        setIsDumping(false);
-        document.querySelector(".loader")!.classList.add("complete");
-        document.querySelector(".loader")!.classList.remove("loading");
-        
-        setTimeout(() => {
-          document.querySelector(".loader")!.classList.remove("complete");
-        }, 1000);
-      }}
+      onSubmit={submitDump}
       className={`mt-4 w-full ${className}`}
+      onKeyDown={(e) => {
+        if (e.key == "Enter" && e.shiftKey) {
+          e.preventDefault()
+          submitDump(e);
+        }
+      }}
     >
-      <Textarea required id="dumpcontent" placeholder="What's on your mind?" disabled={isDumping} />
+      <Textarea ref={inputRef} required id="dumpcontent" placeholder="What's on your mind?" disabled={isDumping} />
       <div className="mt-4 flex justify-between flex-row-reverse">
         <Button type="submit" disabled={isDumping}>Dump</Button>
         <div className="flex items-center gap-2">
