@@ -57,7 +57,7 @@ const UserDump = ({ dump, auth, user }: { dump: Dumps, auth: Session | null, use
         const dmp = _dump.current.getBoundingClientRect();
 
         const x = dmp.left + dmp.width/2 - bin.left - bin.width/2;
-        const y = dmp.top + dmp.height*3/4 - bin.top - bin.height/2;
+        const y = dmp.top + 100*3/4 - bin.top - bin.height/2;
 
         lid.current.parentElement!.style.setProperty("--x", `${x}px`);
         lid.current.parentElement!.style.setProperty("--y", `${y}px`);

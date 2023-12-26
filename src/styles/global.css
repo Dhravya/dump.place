@@ -111,10 +111,12 @@
 
 .dump {
   position: relative;
+
+  transition: height 0.3s ease;
 }
 
 .dump.confirm-delete {
-  @apply border-none;
+  @apply border-none h-[100px];
 }
 
 .psuedo-dump {
@@ -124,7 +126,7 @@
 }
 
 .dump.confirm-delete .psuedo-dump {
-  @apply top-[15%] left-[50%] w-[15px] h-[15px] bg-border rounded-full;
+  @apply top-[15%] left-[50%] w-[15px] h-[15px] bg-white/30 rounded-full;
 
   animation: ball 0.5s ease-in-out forwards;
 }
