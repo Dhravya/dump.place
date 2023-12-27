@@ -10,7 +10,7 @@ function DumpGallery({ top100PublicDumps }: { top100PublicDumps: Dumps[] }) {
     <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2}}>
       <Masonry gutter="16px">
         {top100PublicDumps.map((dump) => (
-          <Dump dump={dump} />
+          <Dump key={dump.id} dump={dump} />
         ))}
       </Masonry>
     </ResponsiveMasonry>

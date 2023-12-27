@@ -50,17 +50,28 @@ const UserDump = ({ dump, auth, user }: { dump: Dumps, auth: Session | null, use
 
     }
 
-    useEffect(() => {
+    function dumpPosition() {
         if (!_dump.current || !lid.current) return;
         
         const bin = lid.current.parentElement!.getBoundingClientRect();
         const dmp = _dump.current.getBoundingClientRect();
 
         const x = dmp.left + dmp.width/2 - bin.left - bin.width/2;
-        const y = dmp.top + dmp.height*3/4 - bin.top - bin.height/2;
+        const y = dmp.top + 100*3/4 - bin.top - bin.height/2;
 
         lid.current.parentElement!.style.setProperty("--x", `${x}px`);
         lid.current.parentElement!.style.setProperty("--y", `${y}px`);
+    }
+
+    useEffect(() => {
+
+        dumpPosition();
+
+        window.addEventListener("resize", dumpPosition);
+
+        return () => {
+            window.removeEventListener("resize", dumpPosition);
+        }
 
     }, [])
 
@@ -112,8 +123,8 @@ const UserDump = ({ dump, auth, user }: { dump: Dumps, auth: Session | null, use
                         {dump.content}
                     </Markdown>
                 </div>
-                <button onClick={yesDeleteIt} onMouseEnter={() => lid.current?.classList.add("open")} onMouseLeave={() => lid.current?.classList.remove('open')} className={`${deleteConfirmation && "on"} confirm-btn-y absolute top-[75%] -translate-y-1/2 left-[30%]`}>yes</button>
-                <button onClick={() => ( setDeleteConfirmation(false) )} className={`${deleteConfirmation && "on"} confirm-btn-n absolute top-[75%] -translate-y-1/2 right-[30%]`}>no</button>
+                <button onClick={yesDeleteIt} onMouseEnter={() => lid.current?.classList.add("open")} onMouseLeave={() => lid.current?.classList.remove('open')} className={`${deleteConfirmation && "on"} confirm-btn-y absolute top-[75%] -translate-y-1/2 left-[25%] md:left-[30%]`}>yes</button>
+                <button onClick={() => ( setDeleteConfirmation(false) )} className={`${deleteConfirmation && "on"} confirm-btn-n absolute top-[75%] -translate-y-1/2 right-[25%] md:right-[30%]`}>no</button>
                 <div ref={ball} className="psuedo-dump" />
             </div>
             {
