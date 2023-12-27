@@ -39,7 +39,7 @@ export default function HeroSection() {
             variants={FADE_DOWN_ANIMATION_VARIANTS}
             className="space-x-4 font-headingAlt text-5xl font-bold tracking-tight sm:text-7xl"
           >
-            <span className={cn(style.magicText, "inline")}>Noice Proof</span>
+            <span className={cn(style.magicText, "inline")}>Noise Proof</span>
             <span className="mx-1"></span> thoughts from{" "}
             <span className="mx-[2px]"></span> anywhere
           </motion.h1>

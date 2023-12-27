@@ -23,7 +23,7 @@ import { getServerAuthSession } from "@/server/auth";
 async function NavigationMenuComp() {
   const auth = await getServerAuthSession();
   return (
-    <NavigationMenu className="h-16 bg-transparent backdrop-blur-lg overflow-hidden p-4">
+    <NavigationMenu className="h-16  backdrop-blur-lg overflow-hidden p-4">
       <NavigationMenuList className="flex w-screen items-center justify-between gap-4 px-4 md:px-8">
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
