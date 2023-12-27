@@ -37,7 +37,7 @@ export default function HeroSection() {
         >
           <motion.h1
             variants={FADE_DOWN_ANIMATION_VARIANTS}
-            className="font-headingAlt space-x-4 text-5xl font-bold tracking-tight sm:text-7xl"
+            className="space-x-4 font-headingAlt text-5xl font-bold tracking-tight sm:text-7xl"
           >
             <span className={cn(style.magicText, "inline")}>Noice Proof</span>
             <span className="mx-1"></span> thoughts from{" "}
@@ -56,7 +56,7 @@ export default function HeroSection() {
             className="mt-10 flex items-center justify-center gap-x-6 "
           >
             {/* <Link className="z-50"> */}
-              <Button onClick={() => signIn()}>Get started</Button>
+            <Button onClick={() => signIn()}>Get started</Button>
             {/* </Link> */}
 
             <Link href="/usage" className="z-50">
