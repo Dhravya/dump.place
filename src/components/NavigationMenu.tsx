@@ -23,11 +23,11 @@ import { getServerAuthSession } from "@/server/auth";
 async function NavigationMenuComp() {
   const auth = await getServerAuthSession();
   return (
-    <NavigationMenu className="h-16 overflow-hidden p-4">
+    <NavigationMenu className="h-16 bg-transparent backdrop-blur-lg overflow-hidden p-4">
       <NavigationMenuList className="flex w-screen items-center justify-between gap-4 px-4 md:px-8">
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className="font-bold text-blue-300">
+            <NavigationMenuLink className="font-bold text-blue-300 font-heading bg-gradient-to-br from-purple-500/40 via-blue-300 to-blue-400 bg-clip-text text-transparent">
               DUMP.place
             </NavigationMenuLink>
           </Link>
