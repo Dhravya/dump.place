@@ -61,7 +61,7 @@ function DumpForm({ className }: { className?: string }) {
       onSubmit={submitDump}
       className={`mt-4 w-full ${className}`}
       onKeyDown={(e) => {
-        if (e.key == "Enter" && e.shiftKey) {
+        if (e.key == "Enter" && e.ctrlKey || e.metaKey) {
           e.preventDefault()
           submitDump(e);
         }
