@@ -70,8 +70,6 @@ export default async function Page({
 
         {auth?.user.id === user.id && <DumpForm />}
 
-
-
         <ul className="gap-4">
           {dumps.map((dump) => (
             <li className="w-full" key={dump.id}>

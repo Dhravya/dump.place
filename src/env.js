@@ -32,6 +32,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
     MODERATOR_KEY: z.string(),
+    DIRECT_URL: z.string(),
     ADMIN_EMAIL: z.string().email(),
   },
 
@@ -57,6 +58,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     MODERATOR_KEY: process.env.MODERATOR_KEY,
+    DIRECT_URL: process.env.DIRECT_URL,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   },
   /**

@@ -111,10 +111,12 @@
 
 .dump {
   position: relative;
+
+  transition: height 0.3s ease;
 }
 
 .dump.confirm-delete {
-  @apply border-none;
+  @apply border-none h-[100px];
 }
 
 .psuedo-dump {
@@ -124,7 +126,7 @@
 }
 
 .dump.confirm-delete .psuedo-dump {
-  @apply top-[15%] left-[50%] w-[15px] h-[15px] bg-border rounded-full;
+  @apply top-[15%] left-[50%] w-[15px] h-[15px] bg-white/30 rounded-full;
 
   animation: ball 0.5s ease-in-out forwards;
 }
@@ -169,10 +171,10 @@
   @apply scale-100;
 }
 
-.confirm-btn-y:hover {
-  @apply bg-destructive/20 text-destructive;
+.confirm-btn-y {
+  @apply bg-destructive/20 text-destructive md:bg-transparent md:text-inherit md:hover:bg-destructive/20 md:hover:text-destructive;
 }
 
-.confirm-btn-n:hover {
-  @apply bg-primary/20 text-primary;
+.confirm-btn-n {
+  @apply bg-primary/20 text-primary md:text-inherit md:bg-transparent md:hover:bg-primary/20 md:hover:text-primary;
 }
