@@ -3,6 +3,7 @@ import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
 import { revalidatePath } from "next/cache";
 import { moderate } from "@/server/moderate";
+import { env } from "@/env";
 
 export async function handleNameSubmit(
   name: string,
@@ -243,7 +244,7 @@ export const deleteDump = async (id: number) => {
   }
 
   if (dump.createdById !== authuser.id) {
-    if (authuser.email != 'dhravyashah@gmail.com'){
+    if (authuser.email != env.ADMIN_EMAIL){
       return {
         status: 403,
         body: {

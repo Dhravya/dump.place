@@ -5,12 +5,13 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
 import { deleteDump } from "../actions";
+import { env } from "@/env";
 
 export default async function Page() {
 
   const auth = await getServerAuthSession();
 
-  if (auth?.user.email !== "dhravyashah@gmail.com") {
+  if (auth?.user.email !== env.ADMIN_EMAIL) {
     notFound()
   }
   const dumps = await db.dumps.findMany({
@@ -43,7 +44,7 @@ export default async function Page() {
                     </div>
                   </div>
 
-                  {auth?.user.email === "dhravyashah@gmail.com" && (
+                  {auth?.user.email === env.ADMIN_EMAIL && (
                     <DeleteButton id={dump.id} />
                   )}
                 </div>
