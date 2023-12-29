@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,8 @@ export default function HeroSection() {
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
   };
   return (
-    <div className="mx-auto max-w-full px-6 lg:px-8 ">
+    <div className="mx-auto mt-1 max-w-full  px-6 md:mt-3 lg:px-8 ">
+      <div className="mx-auto"></div>
       <div className="mx-auto max-w-full text-center">
         <motion.div
           initial="hidden"
@@ -66,6 +66,10 @@ export default function HeroSection() {
             </Link>
           </motion.div>
         </motion.div>
+      </div>
+
+      <div className="mx-auto flex items-center justify-center">
+        <Background />
       </div>
       <div className="mt-16 flow-root sm:mt-24">
         <motion.div

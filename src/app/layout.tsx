@@ -43,8 +43,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`dark overflow-x-hidden overflow-y-autofont-sans ${inter.variable} ${fontHeaderAlt.variable} ${fontHeading.variable} ${fontSubHeading.variable}  `}>
         <div className="loader" />
+
         <HydrationOverlay>
           <NavigationMenuComp />
+        
           {children}
         </HydrationOverlay>
       </body>
