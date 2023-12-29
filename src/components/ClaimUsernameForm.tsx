@@ -35,7 +35,7 @@ function ClaimUsernameForm() {
           console.log(response)
 
           if (response.status == 400) {
-            setError("Username already taken");
+            setError(response.body.error ?? "Something went wrong.");
           } else if (response.status == 200) {
             setError("");
             await createDump(dump, true);
@@ -55,10 +55,11 @@ function ClaimUsernameForm() {
               id="name"
               className="w-48"
               placeholder="dhravya"
+              pattern="^[a-z0-9_]{3,20}$"
               required
             />
           </div>
-          <div className="mt-2 text-red-500">{error}</div>
+          <div className="mt-2 text-red-500 max-w-96">{error}</div>
         </div>
 
         <div className="mt-8">

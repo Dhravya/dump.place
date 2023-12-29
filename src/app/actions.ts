@@ -21,6 +21,17 @@ export async function handleNameSubmit(
     };
   }
 
+  // username should be between 3 and 20 characters, should be lowercase and should not contain any special characters
+  if (!/^[a-z0-9_]{3,20}$/.test(name)) {
+    return {
+      status: 400,
+      body: {
+        error:
+          "Username should be between 3 and 20 characters, should be lowercase and should not contain any special characters.",
+      },
+    };
+  }
+
   const checkAvailability = await db.user.findFirst({
     where: {
       username: name,

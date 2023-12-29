@@ -40,7 +40,7 @@ export function SettingsForm({
           }
 
           if (response.status == 400) {
-            setError("Username already taken");
+            setError(response.body.error ?? "Something went wrong.");
           } else if (response.status == 200) {
             setError("");
             window.location.href = `/me`;
@@ -64,7 +64,7 @@ export function SettingsForm({
               required
             />
           </div>
-          <div className="mt-2 text-red-500">{error}</div>
+          <div className="mt-2 text-red-500 max-w-96">{error}</div>
         </div>
 
         <div className="mt-8">
