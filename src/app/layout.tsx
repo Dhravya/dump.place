@@ -4,7 +4,7 @@ import localFont from 'next/font/local';
 import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
 
 import { Inter } from 'next/font/google';
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description: 'A minimal place to dump your thoughts.',
     images: [
       {
-        url: '/preview.png',
+        url: 'https://dump.place/preview.png',
         width: 796,
         height: 682,
       }
