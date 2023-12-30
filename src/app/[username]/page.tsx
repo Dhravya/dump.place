@@ -50,7 +50,7 @@ export default async function Page({
       <div className="w-96 max-w-2xl">
         <div className="flex flex-col items-center justify-center">
           <Avatar className="h-24 w-24">
-            <AvatarImage src={`https://unavatar.io/${user.email}`} />
+            <AvatarImage loading="lazy" src={`/@${user.username}/pfp`} />
             <AvatarFallback>{user.username!.slice(0, 2)}</AvatarFallback>
           </Avatar>
           <h1 className="mt-2 text-5xl">{user.username}</h1>

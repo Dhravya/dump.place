@@ -11,7 +11,7 @@ export default async function HomePage() {
 
 
   // Get all public dumps from authorized users
-  const top100PublicDumps = await tryCatch(async () =>
+  const top50PublicDumps = await tryCatch(async () =>
   await db.dumps.findMany({
     where: {
       isPrivate: false,
@@ -19,7 +19,7 @@ export default async function HomePage() {
     orderBy: {
       createdAt: "desc",
     },
-    take: 100,
+    take: 25,
   }), []
   );
 
@@ -54,7 +54,7 @@ export default async function HomePage() {
             <h2 className="text-center text-2xl font-bold">
               public <span className="italic">DUMPS</span>
             </h2>
-            <DumpGallery top100PublicDumps={top100PublicDumps} />
+            <DumpGallery top100PublicDumps={top50PublicDumps} />
           </div>
         </div>
       </div>

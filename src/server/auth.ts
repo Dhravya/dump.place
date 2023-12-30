@@ -53,24 +53,24 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db),
   providers: [
-    EmailProvider({
-      from: "Dump.place <dumps@dhr.wtf>",
-      async sendVerificationRequest({ identifier: email, url }) {
-        await fetch("https://worker-email.dhravya.workers.dev/api/email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `${env.EMAIL_TOKEN}`,
-          },
-          body: JSON.stringify({
-            to: email,
-            from: "Dump place <dumps@dhr.wtf>",
-            subject: "Verify your email address.",
-            text: `Welcome to DUMP place. Click here to authenticate: ${url}`,
-          }),
-        });
-      },
-    }),
+    // EmailProvider({
+    //   from: "Dump.place <dumps@dhr.wtf>",
+    //   async sendVerificationRequest({ identifier: email, url }) {
+    //     await fetch("https://worker-email.dhravya.workers.dev/api/email", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `${env.EMAIL_TOKEN}`,
+    //       },
+    //       body: JSON.stringify({
+    //         to: email,
+    //         from: "Dump place <dumps@dhr.wtf>",
+    //         subject: "Verify your email address.",
+    //         text: `Welcome to DUMP place. Click here to authenticate: ${url}`,
+    //       }),
+    //     });
+    //   },
+    // }),
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,

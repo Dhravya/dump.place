@@ -12,7 +12,7 @@ export function Dump({ dump }: { dump: Dumps }) {
         <div className="flex flex-col">
           <Link href={`/@${dump.createdByName}`} className="flex items-center gap-2">
             <Avatar className="h-7 w-7">
-              <AvatarImage src={`/@${dump.createdByName}/pfp`} />
+              <AvatarImage loading="lazy" src={`/@${dump.createdByName}/pfp`} />
               <AvatarFallback>{dump.createdByName.slice(0, 2)}</AvatarFallback>
             </Avatar>
             <div>

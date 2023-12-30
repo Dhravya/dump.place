@@ -22,6 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+      <script async defer data-website-id="ecec2b13-0f08-416d-921b-94a601eb414f" src="https://u.dhr.wtf/umami.js"></script>
+      </head>
       <body className={`dark font-sans ${inter.variable}`}>
         <div className="loader" />
         <HydrationOverlay>
