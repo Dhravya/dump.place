@@ -24,22 +24,26 @@ export default async function HomePage() {
 
   return (
     <main className="flex  h-full w-screen flex-col items-center justify-center  overflow-x-hidden bg-gradient-to-tl from-transparent via-purple-500/5 to-black p-4 md:p-8 ">
-      <HeroSection />
-      <div className="flex h-full max-w-2xl items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-2">
+      <HeroSection signedIn={auth?.user.name ? true : false} />
+      <div className="flex h-full md:w-[60%] w-full items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-2 w-full">
           {auth && !auth.user.username && (
             <div className="mt-16">
               <ClaimUsernameForm />
             </div>
           )}
-          {auth?.user.username && <DumpForm className="mt-8" />}
-          {/* Show top 100 public dumps in masonry layout */}
-          <div className="mt-8 flex w-full flex-col gap-8">
-            <h2 className="text-center text-2xl font-bold">
-              public <span className="italic">DUMPS</span>
-            </h2>
-            <DumpGallery top100PublicDumps={top50PublicDumps} />
-          </div>
+          {auth?.user.username && <DumpForm />}
+        </div>
+      </div>
+      <div className="mt-8 flex md:w-[60%] w-full flex-col gap-8">
+        <h2 className="text-center font-heading text-4xl font-bold  md:text-5xl">
+          Public{" "}
+          <span className="bg-gradient-to-tr from-purple-400/80 via-white to-white/90 bg-clip-text text-transparent">
+            Dumps
+          </span>
+        </h2>
+        <div className="mt-2">
+          <DumpGallery top100PublicDumps={top50PublicDumps} />
         </div>
       </div>
     </main>

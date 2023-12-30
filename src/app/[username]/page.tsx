@@ -53,8 +53,8 @@ export default async function Page({
             <AvatarImage loading="lazy" src={`/@${user.username}/pfp`} />
             <AvatarFallback>{user.username!.slice(0, 2)}</AvatarFallback>
           </Avatar>
-          <h1 className="mt-2 text-5xl">{user.username}</h1>
-          <p className="text-md mt-4 text-slate-400 dark:text-slate-500">
+          <h1 className="mt-2 font-heading text-4xl font-bold md:text-5xl">{user.username}</h1>
+          <p className="text-md mt-4 text-slate-400 dark:text-slate-500 text-center">
             {user.about}
           </p>
         </div>
