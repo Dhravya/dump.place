@@ -29,7 +29,7 @@ function DumpForm({ className }: { className?: string }) {
     const response = await createDump(dump, isPublic);
 
     if(response.body.error){
-      toast(response.body.error)
+      toast.error(response.body.error)
     }
 
     // Clear input
