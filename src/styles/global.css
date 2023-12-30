@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -9,57 +9,57 @@
 
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
- 
+
     --primary: 24 9.8% 10%;
     --primary-foreground: 60 9.1% 97.8%;
- 
+
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
- 
+
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
- 
+
     --accent: 60 4.8% 95.9%;
     --accent-foreground: 24 9.8% 10%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
 
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
     --ring: 20 14.3% 4.1%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
- 
+
     --card: 20 14.3% 4.1%;
     --card-foreground: 60 9.1% 97.8%;
- 
+
     --popover: 20 14.3% 4.1%;
     --popover-foreground: 60 9.1% 97.8%;
- 
+
     --primary: 60 9.1% 97.8%;
     --primary-foreground: 24 9.8% 10%;
- 
+
     --secondary: 12 6.5% 15.1%;
     --secondary-foreground: 60 9.1% 97.8%;
- 
+
     --muted: 12 6.5% 15.1%;
     --muted-foreground: 24 5.4% 63.9%;
- 
+
     --accent: 12 6.5% 15.1%;
     --accent-foreground: 60 9.1% 97.8%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 60 9.1% 97.8%;
- 
+
     --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
     --ring: 24 5.7% 82.9%;
@@ -69,18 +69,19 @@
 :root {
   --bouncy: cubic-bezier(0.67, -0.12, 0.4, 1.2);
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 .loader {
-  @apply fixed z-50 top-0 left-0 h-[2px] rounded-full bg-white;
+  @apply !fixed z-50 !top-0 !left-0 !h-[3px] rounded-full bg-white;
 
   transition: width 1s var(--bouncy), color 0.3s var(--bouncy);
 }
@@ -93,19 +94,26 @@
   0% {
     @apply w-0;
   }
+
   30% {
-    @apply w-[60vw];
+    @apply w-[60vw] !left-1/4;
   }
+
   70% {
-    @apply w-[60vw];
+    @apply w-[60vw] !left-[40%];
   }
+
+  90% {
+    @apply w-[70vw] !left-[45]
+  }
+
   100% {
     @apply w-[80vw];
   }
 }
 
 .loader.complete {
-  @apply w-screen;
+  @apply w-screen !left-1/2;
   animation: none;
 }
 
@@ -161,13 +169,15 @@
   transition: transform 0.3s var(--bouncy);
 }
 
-.confirm-btn-y, .confirm-btn-n {
+.confirm-btn-y,
+.confirm-btn-n {
   @apply px-3 py-1 rounded-full text-sm scale-0;
 
   transition: background-color 0.3s, color 0.3s, transform 0.3s var(--bouncy);
 }
 
-.confirm-btn-y.on, .confirm-btn-n.on {
+.confirm-btn-y.on,
+.confirm-btn-n.on {
   @apply scale-100;
 }
 

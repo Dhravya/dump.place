@@ -10,23 +10,25 @@ export default async function HomePage() {
   const auth = await getServerAuthSession();
 
   // Get all public dumps from authorized users
-  const top50PublicDumps = await tryCatch(async () =>
-  await db.dumps.findMany({
-    where: {
-      isPrivate: false,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 25,
-  }), []
+  const top50PublicDumps = await tryCatch(
+    async () =>
+      await db.dumps.findMany({
+        where: {
+          isPrivate: false,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 25,
+      }),
+    [],
   );
 
   return (
-    <main className="flex  h-full w-screen flex-col items-center justify-center  overflow-x-hidden bg-gradient-to-tl from-transparent via-purple-500/5 to-black p-4 md:p-8 ">
+    <main className="flex h-full w-screen flex-col items-center justify-center  overflow-x-hidden bg-gradient-to-tl from-transparent via-purple-500/5 to-black p-4 md:p-8 ">
       <HeroSection signedIn={auth?.user.name ? true : false} />
-      <div className="flex h-full md:w-[60%] w-full items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-2 w-full">
+      <div className="flex h-full w-full items-center justify-center md:w-[60%]">
+        <div className="flex w-full flex-col items-center justify-center gap-2">
           {auth && !auth.user.username && (
             <div className="mt-16">
               <ClaimUsernameForm />
@@ -35,7 +37,7 @@ export default async function HomePage() {
           {auth?.user.username && <DumpForm />}
         </div>
       </div>
-      <div className="mt-8 flex md:w-[60%] w-full flex-col gap-8">
+      <div className="mt-8 flex w-full flex-col gap-8 md:w-[60%]">
         <h2 className="text-center font-heading text-4xl font-bold  md:text-5xl">
           Public{" "}
           <span className="bg-gradient-to-tr from-purple-400/80 via-white to-white/90 bg-clip-text text-transparent">

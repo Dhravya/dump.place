@@ -6,6 +6,7 @@ import { useState, type FormEvent, useEffect, useRef } from "react";
 import { createDump } from "./actions";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 function DumpForm({ className }: { className?: string }) {
   const [isDumping, setIsDumping] = useState(false);
@@ -25,7 +26,10 @@ function DumpForm({ className }: { className?: string }) {
         "data-state",
       ) == "checked";
 
-    await createDump(dump, isPublic);
+    const response = await createDump(dump, isPublic);
+    if(response.body.error){
+      toast(response.body.error)
+    }
 
     // Clear input
     (document.getElementById("dumpcontent") as HTMLInputElement).value = "";
