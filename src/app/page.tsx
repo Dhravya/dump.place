@@ -23,12 +23,6 @@ export default async function HomePage() {
         </div>
       </div>
       <div className="mt-8 flex md:w-[60%] w-full flex-col gap-8">
-        <h2 className="text-center font-heading text-4xl font-bold  md:text-5xl">
-          Public{" "}
-          <span className="bg-gradient-to-tr from-purple-400/80 via-white to-white/90 bg-clip-text text-transparent">
-            Dumps
-          </span>
-        </h2>
         <div className="mt-2">
           <Suspense fallback={<>Loading</>}>
             <DumpGallery/>

@@ -17,7 +17,9 @@ async function DumpGallery() {
     }), []
     );
   return (
+    <>
     <Gallery topDumps={top50PublicDumps} />
+    </>
   );
 }
 
