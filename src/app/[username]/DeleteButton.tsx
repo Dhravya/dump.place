@@ -1,11 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { ForwardedRef, RefObject } from "react";
-import { deleteDump } from "../actions";
+import React, { type ForwardedRef } from "react";
 
-const DeleteButton = React.forwardRef(({ id, confirm, setConfirm }: { id: number, confirm: boolean, setConfirm: React.Dispatch<React.SetStateAction<boolean>> }, lid: ForwardedRef<SVGSVGElement>) => {
-    
+const DeleteButton = React.forwardRef(({ id , confirm, setConfirm }: { id: number, confirm: boolean, setConfirm: React.Dispatch<React.SetStateAction<boolean>> }, lid: ForwardedRef<SVGSVGElement>) => {
     return (
         <Button
             onClick={() => {
@@ -14,6 +12,7 @@ const DeleteButton = React.forwardRef(({ id, confirm, setConfirm }: { id: number
             className={`bin px-2 py-1 flex flex-col items-center justify-center ${confirm && "confirm"}`}
             size="sm"
             variant={ confirm ? "nothing" : "secondary" }
+            key={id}
         >
             <svg ref={lid} className="w-4 lid" viewBox="0 0 26 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M11.08 0H15.5867C15.876 0 16.128 1.53979e-07 16.3653 0.0373335C16.8276 0.111391 17.2661 0.292615 17.6458 0.566509C18.0255 0.840402 18.3359 1.19936 18.552 1.61467C18.664 1.828 18.7427 2.06667 18.8347 2.34L18.9827 2.78667C19.0848 3.14955 19.3069 3.4671 19.6127 3.68747C19.9186 3.90784 20.2901 4.01801 20.6667 4H24.6667C24.9319 4 25.1862 4.10536 25.3738 4.29289C25.5613 4.48043 25.6667 4.73478 25.6667 5C25.6667 5.26522 25.5613 5.51957 25.3738 5.70711C25.1862 5.89464 24.9319 6 24.6667 6H2C1.73478 6 1.48043 5.89464 1.29289 5.70711C1.10536 5.51957 1 5.26522 1 5C1 4.73478 1.10536 4.48043 1.29289 4.29289C1.48043 4.10536 1.73478 4 2 4H6.12C6.47614 3.99146 6.82017 3.86903 7.10164 3.65067C7.38311 3.43231 7.58721 3.1295 7.684 2.78667L7.83333 2.34C7.924 2.06667 8.00267 1.828 8.11333 1.61467C8.32959 1.1992 8.64012 0.840137 9.02007 0.566234C9.40001 0.292331 9.83881 0.111196 10.3013 0.0373335C10.5387 1.53979e-07 10.7907 0 11.0787 0M9.34267 4C9.43629 3.81665 9.51434 3.62575 9.576 3.42933L9.70933 3.02933C9.83067 2.66533 9.85867 2.592 9.88667 2.53867C9.95865 2.40001 10.0621 2.28015 10.1888 2.18869C10.3154 2.09723 10.4617 2.03672 10.616 2.012C10.7898 1.99732 10.9644 1.99331 11.1387 2H15.5253C15.9093 2 15.9893 2.00267 16.048 2.01333C16.2021 2.03791 16.3484 2.09822 16.475 2.18944C16.6017 2.28066 16.7052 2.40026 16.7773 2.53867C16.8053 2.592 16.8333 2.66533 16.9547 3.03067L17.088 3.43067L17.14 3.58C17.192 3.72667 17.2533 3.86533 17.3213 4H9.34267Z" fill="white"/>

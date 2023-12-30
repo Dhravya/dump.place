@@ -3,8 +3,8 @@
 import DeleteButton from "./DeleteButton";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Dumps, User } from "@prisma/client";
-import { Session } from "next-auth";
+import { type Dumps, type User } from "@prisma/client";
+import { type Session } from "next-auth";
 import { useEffect, useRef, useState } from "react";
 import { deleteDump } from "../actions";
 
@@ -43,7 +43,7 @@ const UserDump = ({ dump, auth, user }: { dump: Dumps, auth: Session | null, use
         }, 300)
 
         setTimeout(() => {
-            deleteDump(dump.id);
+            void deleteDump(dump.id)
             setDeleteConfirmation(false);
             _dump.current!.style.display = "none";
         }, 700);

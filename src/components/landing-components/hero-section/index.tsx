@@ -11,7 +11,7 @@ import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 
 export default function HeroSection({ signedIn }: { signedIn: boolean }) {
-  const ref = React.useRef<HTMLElement>(null);
+  const ref = React.useRef(null);
   const isInView = useInView(ref) as boolean;
 
   const FADE_DOWN_ANIMATION_VARIANTS = {

@@ -60,7 +60,7 @@ function DumpForm({ className }: { className?: string }) {
       onKeyDown={(e) => {
         if (e.key == "Enter" && (e.ctrlKey || e.metaKey)) {
           e.preventDefault();
-          submitDump(e);
+          void submitDump(e);
         }
       }}
     >
