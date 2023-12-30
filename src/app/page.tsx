@@ -1,26 +1,15 @@
 import { getServerAuthSession } from "@/server/auth";
 import ClaimUsernameForm from "@/components/ClaimUsernameForm";
 import { db } from "@/server/db";
-import DumpGallery from "./dumpGallery";
+import DumpGallery from "./dumpGallery/galleryFetch";
 import DumpForm from "./dumpform";
 import { tryCatch } from "@/lib/utils";
 import HeroSection from "@/components/landing-components/hero-section";
+import { Suspense } from "react";
 
 export default async function HomePage() {
   const auth = await getServerAuthSession();
 
-  // Get all public dumps from authorized users
-  const top50PublicDumps = await tryCatch(async () =>
-  await db.dumps.findMany({
-    where: {
-      isPrivate: false,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 25,
-  }), []
-  );
 
   return (
     <main className="flex  h-full w-screen flex-col items-center justify-center  overflow-x-hidden bg-gradient-to-tl from-transparent via-purple-500/5 to-black p-4 md:p-8 ">
@@ -43,7 +32,9 @@ export default async function HomePage() {
           </span>
         </h2>
         <div className="mt-2">
-          <DumpGallery top100PublicDumps={top50PublicDumps} />
+          <Suspense fallback={<>Loading</>}>
+            <DumpGallery/>
+          </Suspense>
         </div>
       </div>
     </main>
