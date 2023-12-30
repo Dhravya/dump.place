@@ -6,7 +6,7 @@ export function DeleteButton({ id }: { id: number }) {
     return (
       <Button
           onClick={() => {
-            deleteDump(id);
+            void deleteDump(id);
           }}
           className="bin px-2 py-1 flex flex-col items-center justify-center"
           size="sm"

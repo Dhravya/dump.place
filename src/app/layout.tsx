@@ -4,8 +4,6 @@ import localFont from 'next/font/local';
 import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
 
 import { Inter } from 'next/font/google';
-import { AnimatePresence, motion } from 'framer-motion';
-import Background from '@/components/landing-components/hero-section/background';
 
 const inter = Inter({
   subsets: ['latin'],
