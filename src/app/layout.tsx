@@ -41,7 +41,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`dark overflow-x-hidden overflow-y-autofont-sans ${inter.variable} ${fontHeaderAlt.variable} ${fontHeading.variable} ${fontSubHeading.variable}  `}>
+      <head>
+      <script async defer data-website-id="ecec2b13-0f08-416d-921b-94a601eb414f" src="https://u.dhr.wtf/umami.js"></script>
+      </head>
+      <body className={`dark font-sans ${inter.variable}`}>
         <div className="loader" />
 
         <HydrationOverlay>

@@ -22,7 +22,7 @@ export async function GET(
     description: user.about ?? "A thought dump",
     site_url: "https://dump.place",
     feed_url: `https://dump.place/@${user.username}/rss.xml`,
-    image_url: `https://dump.place/@${user.username}/pfp`,
+    image_url: `/@${user.username}/pfp`,
     pubDate: new Date(),
   };
 

@@ -10,18 +10,16 @@ export default async function HomePage() {
   const auth = await getServerAuthSession();
 
   // Get all public dumps from authorized users
-  const top100PublicDumps = await tryCatch(
-    async () =>
-      await db.dumps.findMany({
-        where: {
-          isPrivate: false,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-        take: 100,
-      }),
-    [],
+  const top50PublicDumps = await tryCatch(async () =>
+  await db.dumps.findMany({
+    where: {
+      isPrivate: false,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 25,
+  }), []
   );
 
   return (
@@ -35,17 +33,13 @@ export default async function HomePage() {
             </div>
           )}
           {auth?.user.username && <DumpForm className="mt-8" />}
-        </div>
-      </div>
-      <div className="mt-8 flex w-[48%] flex-col gap-8">
-        <h2 className="text-center font-heading text-4xl font-bold  md:text-5xl">
-          Public{" "}
-          <span className="bg-gradient-to-tr from-purple-400/80 via-white to-white/90 bg-clip-text text-transparent">
-            Dumps{" "}
-          </span>
-        </h2>
-        <div className="mt-2">
-          <DumpGallery top100PublicDumps={top100PublicDumps} />
+          {/* Show top 100 public dumps in masonry layout */}
+          <div className="mt-8 flex w-full flex-col gap-8">
+            <h2 className="text-center text-2xl font-bold">
+              public <span className="italic">DUMPS</span>
+            </h2>
+            <DumpGallery top100PublicDumps={top50PublicDumps} />
+          </div>
         </div>
       </div>
     </main>
