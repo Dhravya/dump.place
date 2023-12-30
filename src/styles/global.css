@@ -80,7 +80,7 @@
 }
 
 .loader {
-  @apply fixed z-50 top-0 left-0 h-[2px] rounded-full bg-white;
+  @apply !fixed z-50 !top-0 !left-0 !h-[3px] rounded-full bg-white;
 
   transition: width 1s var(--bouncy), color 0.3s var(--bouncy);
 }
@@ -93,19 +93,26 @@
   0% {
     @apply w-0;
   }
+
   30% {
-    @apply w-[60vw];
+    @apply w-[60vw] !left-1/4;
   }
+
   70% {
-    @apply w-[60vw];
+    @apply w-[60vw] !left-[40%];
   }
+
+  90% {
+    @apply w-[70vw] !left-[45]
+  }
+
   100% {
     @apply w-[80vw];
   }
 }
 
 .loader.complete {
-  @apply w-screen;
+  @apply w-screen !left-1/2;
   animation: none;
 }
 

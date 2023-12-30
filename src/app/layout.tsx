@@ -5,6 +5,7 @@ import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
 
 import { Inter } from 'next/font/google';
 import { type Metadata } from 'next';
+import { Toaster } from '@/components/ui/sonner';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -68,7 +69,7 @@ export default function RootLayout({
 
         <HydrationOverlay>
           <NavigationMenuComp />
-
+          <Toaster />
           {children}
     
         </HydrationOverlay>
