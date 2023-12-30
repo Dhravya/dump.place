@@ -1,9 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import ClaimUsernameForm from "@/components/ClaimUsernameForm";
-import { db } from "@/server/db";
 import DumpGallery from "./dumpGallery/galleryFetch";
 import DumpForm from "./dumpform";
-import { tryCatch } from "@/lib/utils";
 import HeroSection from "@/components/landing-components/hero-section";
 import { Suspense } from "react";
 
