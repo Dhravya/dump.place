@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
 
 import { Inter } from 'next/font/google';
+import { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,10 +26,24 @@ const fontHeaderAlt = localFont({
   variable: '--font-headingAlt',
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Dump.place',
   description: 'A minimal place to dump your thoughts.',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
+  openGraph: {
+    title: 'Dump.place',
+    description: 'A minimal place to dump your thoughts.',
+    images: [
+      {
+        url: '/preview.png',
+        width: 796,
+        height: 682,
+      }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image"
+  },
 };
 
 export default function RootLayout({
