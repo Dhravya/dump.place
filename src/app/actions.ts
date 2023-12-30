@@ -4,6 +4,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { revalidatePath } from "next/cache";
 import { moderate } from "@/server/moderate";
 import { env } from "@/env";
+import { ratelimit } from "@/lib/rate-limit";
 
 export async function handleNameSubmit(
   name: string,
@@ -142,25 +143,26 @@ export async function createDump(dump: string, isPublic = true) {
   }
 
 
-  // TODO: MOVE THIS TO REDIS OR OTHER BETTER SOLUTION
+  
   // Check if the user has made more than 2 dumps in the last 2 minutes
+  let result;
+  if(ratelimit){
+    result = await ratelimit.limit(authuser.id);
+    if(!result.success){
+      return {
+        status: 429,
+        body: {
+          error: `You are doing that too much. Please wait a few minutes.`,
+        },
+      };
+    }
+  }
+
   const dumps = await db.dumps.findMany({
     where: {
       createdById: authuser.id,
-      createdAt: {
-        gt: new Date(Date.now() - 120000),
-      },
     },
   });
-
-  if (dumps.length >=  2) {
-    return {
-      status: 429,
-      body: {
-        error: "You are doing that too much. Please wait a few minutes.",
-      },
-    };
-  }
 
   // if any of the dumps content is the same, return an error
   const sameDump = dumps.find((d) => d.content === dump);
