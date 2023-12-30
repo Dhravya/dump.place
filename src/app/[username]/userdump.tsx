@@ -77,7 +77,7 @@ const UserDump = ({ dump, auth, user }: { dump: Dumps, auth: Session | null, use
 
     return (
         <>
-            <div ref={_dump} className={`dump mt-8 rounded-xl border p-5 pt-4 dark:border-gray-500 ${deleteConfirmation && "confirm-delete"}`}>
+            <div ref={_dump} className={`dump mt-8 rounded-xl border p-5 pt-4 ${deleteConfirmation && "confirm-delete"} p-4 flex-col justify-start items-start gap-2 bg-gradient-to-tr from-purple-400/10  via-gray-500/5 to-transparent border-black/50 dark:border-white/20 border-[0.1px] shadow-zinc-500  dark:shadow-purple-400  rounded-2xl px-7 py-5 transition-[border-color] dark:hover:border-white/50`}>
                 <div className="flex items-center justify-between gap-2">
                     <div className={`flex flex-col ${deleteConfirmation ? "invisible" : ""}`}>
                         <div className="flex text-sm text-gray-500 dark:text-gray-400">
