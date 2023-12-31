@@ -24,6 +24,8 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@t3-oss/env-nextjs": "^0.7.1",
+    "@upstash/ratelimit": "^1.0.0",
+    "@upstash/redis": "^1.27.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.16",
