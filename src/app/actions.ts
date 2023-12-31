@@ -158,24 +158,6 @@ export async function createDump(dump: string, isPublic = true) {
     }
   }
 
-  const dumps = await db.dumps.findMany({
-    where: {
-      createdById: authuser.id,
-    },
-  });
-
-  // if any of the dumps content is the same, return an error
-  const sameDump = dumps.find((d) => d.content === dump);
-
-  if (sameDump) {
-    return {
-      status: 400,
-      body: {
-        error: "You have already posted that.",
-      },
-    };
-  }
-
   if (isPublic){
     const isOk = await moderate(dump) as string;
 
