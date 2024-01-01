@@ -78,6 +78,23 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+
+      typography: {
+        DEFAULT: {
+          css: {
+            "--tw-prose-headings": "#fff",
+            "--tw-prose-lead": "#fff",
+            "--tw-prose-links": "	#0096FF",
+            "--tw-prose-bold": "#fff",
+            "--tw-prose-bullets": "#111827;",
+            "--tw-prose-captions": "#fff",
+            "--tw-prose-kbd": "#fff",
+            "--tw-prose-kbd-shadows": "#fff",
+            "--tw-prose-code": "#fff",
+            "--tw-prose-pre-bg": "#fff",
+          },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],

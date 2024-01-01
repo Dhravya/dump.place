@@ -7,9 +7,13 @@ import { createDump } from "./actions";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import remarkGfm from "remark-gfm";
+import Markdown from "react-markdown";
 
 function DumpForm({ className }: { className?: string }) {
   const [isDumping, setIsDumping] = useState(false);
+  const [dumpContent, setDumpContent] = useState("");
+  const [isOutline, setIsOutline] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const submitDump = async (e: FormEvent) => {
@@ -28,13 +32,12 @@ function DumpForm({ className }: { className?: string }) {
 
     const response = await createDump(dump, isPublic);
 
-    if(response.body.error){
-      toast.error(response.body.error)
+    if (response.body.error) {
+      toast.error(response.body.error);
     }
 
     // Clear input
-    (document.getElementById("dumpcontent") as HTMLInputElement).value = "";
-
+    setDumpContent("");
     setIsDumping(false);
     document.querySelector(".loader")!.classList.add("complete");
     document.querySelector(".loader")!.classList.remove("loading");
@@ -69,20 +72,45 @@ function DumpForm({ className }: { className?: string }) {
         }
       }}
     >
-      <Textarea
-        ref={inputRef}
-        required
-        id="dumpcontent"
-        placeholder="What's on your mind?"
-        disabled={isDumping}
-      />
-      <div className="mt-4 flex flex-row-reverse justify-between">
-        <Button type="submit" disabled={isDumping}>
-          Dump
-        </Button>
+      {!isOutline ? (
+        <Textarea
+          ref={inputRef}
+          required
+          id="dumpcontent"
+          placeholder="What's on your mind?"
+          disabled={isDumping}
+          value={dumpContent}
+          onChange={(e) => {
+            setDumpContent(e.target.value);
+          }}
+        />
+      ) : (
+        <Markdown
+          className="text-md p prose mt-4 text-white prose-h1:text-xl prose-h2:text-lg"
+          remarkPlugins={[remarkGfm]}
+        >
+          {dumpContent}
+        </Markdown>
+      )}
+      <div className="mt-4 flex  justify-between">
         <div className="flex items-center gap-2">
           <Switch defaultChecked={true} id="isPrivate" disabled={isDumping} />
+
           <Label htmlFor="isPrivate">Public</Label>
+        </div>
+
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant={isOutline ? "secondary" : "ghost"}
+            onClick={() => setIsOutline((prev) => !prev)}
+          >
+            Preview
+          </Button>
+
+          <Button type="submit" disabled={isDumping || isOutline}>
+            Dump
+          </Button>
         </div>
       </div>
     </form>
