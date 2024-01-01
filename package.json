@@ -10,7 +10,9 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "backup": "node ./scripts/backup.js",
+    "restore": "node ./scripts/restore.js"
   },
   "dependencies": {
     "@builder.io/react-hydration-overlay": "^0.0.6",
@@ -57,6 +59,8 @@
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "autoprefixer": "^10.4.14",
+    "child_process": "^1.0.2",
+    "dotenv": "^16.3.1",
     "eslint": "^8.54.0",
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
