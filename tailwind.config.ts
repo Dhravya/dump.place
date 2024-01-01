@@ -94,6 +94,21 @@ const config = {
             "--tw-prose-pre-bg": "#fff",
           },
         },
+
+        slate: {
+          css: {
+            "--tw-prose-headings": "#fff",
+            "--tw-prose-lead": "#fff",
+            "--tw-prose-links": "	#0096FF",
+            "--tw-prose-bold": "#fff",
+            "--tw-prose-bullets": "#111827;",
+            "--tw-prose-captions": "#fff",
+            "--tw-prose-kbd": "#fff",
+            "--tw-prose-kbd-shadows": "#fff",
+            "--tw-prose-code": "#fff",
+            "--tw-prose-pre-bg": "#fff",
+          },
+        },
       },
     },
   },

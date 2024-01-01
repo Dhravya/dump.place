@@ -86,7 +86,7 @@ function DumpForm({ className }: { className?: string }) {
         />
       ) : (
         <Markdown
-          className="text-md p prose mt-4 text-white prose-h1:text-xl prose-h2:text-lg"
+          className="text-md prose prose-slate mt-4 text-white prose-h1:text-xl prose-h2:text-lg"
           remarkPlugins={[remarkGfm]}
         >
           {dumpContent}
