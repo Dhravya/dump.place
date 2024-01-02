@@ -5,7 +5,8 @@ I created this app as a minimal, nice place to dump my thoughts and see what oth
 
 ## Installation
 1. Clone the repo
-2. Run `npm install`
+2. Run `pnpm install`
+for more information read [pnpm.io/installation](https://pnpm.io/installation)
 3. Run `npm start`
 
 Environment variables:
