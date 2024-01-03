@@ -69,7 +69,7 @@ export async function handleNameSubmit(
     },
     data: {
       name,
-      username : name.toLowerCase().replace(/ /g, "-"),
+      username: name.toLowerCase().replace(/ /g, "-"),
       about,
       password,
     },
@@ -127,6 +127,27 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
+  // Check if the dump is empty
+  const isValidDump =
+    dump
+      .replaceAll(" ", "")
+      .replaceAll(/\n/g, "")
+      .replaceAll(/\t/g, "")
+      .replaceAll("*", "")
+      .replaceAll("`", "")
+      .replaceAll("#", "")
+      .replaceAll("[", "")
+      .replaceAll("]", "")
+      .trim().length > 0;
+  if (!isValidDump) {
+    return {
+      status: 400,
+      body: {
+        error: "Dump is empty.",
+      },
+    };
+  }
+
   const authuser = await db.user.findUnique({
     where: {
       id: auth.user.id,
@@ -143,12 +164,12 @@ export async function createDump(dump: string, isPublic = true) {
   }
 
 
-  
+
   // Check if the user has made more than 2 dumps in the last 2 minutes
   let result;
-  if(ratelimit){
+  if (ratelimit) {
     result = await ratelimit.limit(authuser.id);
-    if(!result.success){
+    if (!result.success) {
       return {
         status: 429,
         body: {
@@ -158,7 +179,7 @@ export async function createDump(dump: string, isPublic = true) {
     }
   }
 
-  if (isPublic){
+  if (isPublic) {
     const isOk = await moderate(dump) as string;
 
     console.log(isOk)
@@ -239,7 +260,7 @@ export const deleteDump = async (id: number) => {
   }
 
   if (dump.createdById !== authuser.id) {
-    if (authuser.email != env.ADMIN_EMAIL){
+    if (authuser.email != env.ADMIN_EMAIL) {
       return {
         status: 403,
         body: {
