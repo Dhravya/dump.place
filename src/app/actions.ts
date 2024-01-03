@@ -129,7 +129,7 @@ export async function createDump(dump: string, isPublic = true) {
 
   // Check if the dump is empty
   const isValidDump =
-    dump
+    dump.replaceAll("!", "")
       .replaceAll(" ", "")
       .replaceAll(/\n/g, "")
       .replaceAll(/\t/g, "")
@@ -163,6 +163,34 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
+  const dumps = await db.dumps.findMany({
+    where: {
+      createdById: authuser.id,
+      createdAt: {
+        gt: new Date(Date.now() - 120000),
+      },
+    },
+  });
+
+  if (dumps.length >= 2) {
+    return {
+      status: 429,
+      body: {
+        error: "You are posting too fast.",
+      }
+    }
+  }
+
+  const sameDump = dumps.find((d) => d.content === dump);
+
+  if (sameDump) {
+    return {
+      status: 409,
+      body: {
+        error: "You've already posted that.",
+      }
+    }
+  }
 
 
   // Check if the user has made more than 2 dumps in the last 2 minutes

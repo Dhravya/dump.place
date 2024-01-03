@@ -100,6 +100,26 @@ export async function POST(request: Request) {
     }
   }
 
+  const isValidDump =
+    content.replaceAll("!", "")
+      .replaceAll(" ", "")
+      .replaceAll(/\n/g, "")
+      .replaceAll(/\t/g, "")
+      .replaceAll("*", "")
+      .replaceAll("`", "")
+      .replaceAll("#", "")
+      .replaceAll("[", "")
+      .replaceAll("]", "")
+      .trim().length > 0;
+  if (!isValidDump) {
+    return new Response(
+      JSON.stringify({ success: "", error: "Your post is empty." }),
+      {
+        status: 400,
+      },
+    );
+  }
+
   // create the post
   await db.dumps.create({
     data: {
