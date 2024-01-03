@@ -12,7 +12,7 @@
 # database
 /prisma/db.sqlite
 /prisma/db.sqlite-journal
-
+.vscode
 # next.js
 /.next/
 /out/
