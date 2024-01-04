@@ -5,7 +5,7 @@ import Gallery from './gallery';
 
 async function DumpGallery() {
     // Get all public dumps from authorized users
-    const top50PublicDumps = await tryCatch(async () =>
+    const top100PublicDumps = await tryCatch(async () =>
     await db.dumps.findMany({
       where: {
         isPrivate: false,
@@ -13,12 +13,12 @@ async function DumpGallery() {
       orderBy: {
         createdAt: "desc",
       },
-      take: 25,
+      take: 100,
     }), []
     );
   return (
     <>
-    <Gallery topDumps={top50PublicDumps} />
+    <Gallery topDumps={top100PublicDumps} />
     </>
   );
 }

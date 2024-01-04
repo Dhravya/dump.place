@@ -4,6 +4,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { revalidatePath } from "next/cache";
 import { moderate } from "@/server/moderate";
 import { env } from "@/env";
+import { ratelimit } from "@/lib/rate-limit";
 
 export async function handleNameSubmit(
   name: string,
@@ -68,7 +69,7 @@ export async function handleNameSubmit(
     },
     data: {
       name,
-      username : name.toLowerCase().replace(/ /g, "-"),
+      username: name.toLowerCase().replace(/ /g, "-"),
       about,
       password,
     },
@@ -126,6 +127,27 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
+  // Check if the dump is empty
+  const isValidDump =
+    dump.replaceAll("!", "")
+      .replaceAll(" ", "")
+      .replaceAll(/\n/g, "")
+      .replaceAll(/\t/g, "")
+      .replaceAll("*", "")
+      .replaceAll("`", "")
+      .replaceAll("#", "")
+      .replaceAll("[", "")
+      .replaceAll("]", "")
+      .trim().length > 0;
+  if (!isValidDump) {
+    return {
+      status: 400,
+      body: {
+        error: "Dump is empty.",
+      },
+    };
+  }
+
   const authuser = await db.user.findUnique({
     where: {
       id: auth.user.id,
@@ -141,9 +163,6 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
-
-  // TODO: MOVE THIS TO REDIS OR OTHER BETTER SOLUTION
-  // Check if the user has made more than 2 dumps in the last 2 minutes
   const dumps = await db.dumps.findMany({
     where: {
       createdById: authuser.id,
@@ -153,28 +172,42 @@ export async function createDump(dump: string, isPublic = true) {
     },
   });
 
-  if (dumps.length >=  2) {
+  if (dumps.length >= 2) {
     return {
       status: 429,
       body: {
-        error: "You are doing that too much. Please wait a few minutes.",
-      },
-    };
+        error: "You are posting too fast.",
+      }
+    }
   }
 
-  // if any of the dumps content is the same, return an error
   const sameDump = dumps.find((d) => d.content === dump);
 
   if (sameDump) {
     return {
-      status: 400,
+      status: 409,
       body: {
-        error: "You have already posted that.",
-      },
-    };
+        error: "You've already posted that.",
+      }
+    }
   }
 
-  if (isPublic){
+
+  // Check if the user has made more than 2 dumps in the last 2 minutes
+  let result;
+  if (ratelimit) {
+    result = await ratelimit.limit(authuser.id);
+    if (!result.success) {
+      return {
+        status: 429,
+        body: {
+          error: `You are doing that too much. Please wait a few minutes.`,
+        },
+      };
+    }
+  }
+
+  if (isPublic) {
     const isOk = await moderate(dump) as string;
 
     console.log(isOk)
@@ -255,7 +288,7 @@ export const deleteDump = async (id: number) => {
   }
 
   if (dump.createdById !== authuser.id) {
-    if (authuser.email != env.ADMIN_EMAIL){
+    if (authuser.email != env.ADMIN_EMAIL) {
       return {
         status: 403,
         body: {
