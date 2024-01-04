@@ -30,6 +30,24 @@ function DumpForm({ className }: { className?: string }) {
         "data-state",
       ) == "checked";
 
+    const isValidDump =
+      dump
+        .replaceAll(" ", "")
+        .replaceAll(/\n/g, "")
+        .replaceAll(/\t/g, "")
+        .replaceAll("*", "")
+        .replaceAll("`", "")
+        .replaceAll("#", "")
+        .replaceAll("[", "")
+        .replaceAll("]", "")
+        .trim().length > 0;
+    if (!isValidDump) {
+      toast.error("Dump is empty");
+      setIsDumping(false);
+      document.querySelector(".loader")!.classList.add("complete");
+      document.querySelector(".loader")!.classList.remove("loading");
+      return;
+    }
     const response = await createDump(dump, isPublic);
 
     if (response.body.error) {

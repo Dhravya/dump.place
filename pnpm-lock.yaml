@@ -38,6 +38,12 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.7.1
     version: 0.7.1(typescript@5.3.3)(zod@3.22.4)
+  '@upstash/ratelimit':
+    specifier: ^1.0.0
+    version: 1.0.0
+  '@upstash/redis':
+    specifier: ^1.27.1
+    version: 1.27.1
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -127,6 +133,12 @@ devDependencies:
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.16(postcss@8.4.32)
+  child_process:
+    specifier: ^1.0.2
+    version: 1.0.2
+  dotenv:
+    specifier: ^16.3.1
+    version: 16.3.1
   eslint:
     specifier: ^8.54.0
     version: 8.56.0
@@ -1471,6 +1483,25 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
+  /@upstash/core-analytics@0.0.6:
+    resolution: {integrity: sha512-cpPSR0XJAJs4Ddz9nq3tINlPS5aLfWVCqhhtHnXt4p7qr5+/Znlt1Es736poB/9rnl1hAHrOsOvVj46NEXcVqA==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@upstash/redis': 1.27.1
+    dev: false
+
+  /@upstash/ratelimit@1.0.0:
+    resolution: {integrity: sha512-IUlc+UKuHJQqXGQi7E3UKV0CKfRZ0g6qeNnbSve940k3xLoM+X3H45MrSwDaH7meMWemztLs0Q4yjkd3ItddCw==}
+    dependencies:
+      '@upstash/core-analytics': 0.0.6
+    dev: false
+
+  /@upstash/redis@1.27.1:
+    resolution: {integrity: sha512-K9UgTBypJ4Dx65s2u5auoyf/5YoCQjaN91QtxlkNg+3g0rqXXy4ELtzACstk1v+bTa547Mm3rzTjotDX/s9+Zg==}
+    dependencies:
+      crypto-js: 4.2.0
+    dev: false
+
   /@webassemblyjs/ast@1.11.6:
     resolution: {integrity: sha512-IN1xI7PwOvLPgjcf180gC1bqn3q/QaOCwYUahIOhbYUu8KA/3tw2RT/T0Gidi1l7Hhj5D/INhJxiICObqpMu4Q==}
     dependencies:
@@ -1831,6 +1862,10 @@ packages:
     resolution: {integrity: sha512-iBZ4F4wRbyORVsu0jPV7gXkOsGYjGHPmAyv+HiHG8gi5PtC9KI2j1+v8/tlibRvjoWX027ypmG/n0HtO5t7unw==}
     dev: false
 
+  /child_process@1.0.2:
+    resolution: {integrity: sha512-Wmza/JzL0SiWz7kl6MhIKT5ceIlnFPJX+lwUGj7Clhy5MMldsSoJR0+uvRzOS5Kv45Mq7t1PoE8TsOA9bzvb6g==}
+    dev: true
+
   /chokidar@3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
@@ -1967,6 +2002,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
 
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
+    dev: false
+
   /cssbeautify@0.3.1:
     resolution: {integrity: sha512-ljnSOCOiMbklF+dwPbpooyB78foId02vUrTDogWzu6ca2DCNB7Kc/BHEGBnYOlUYtwXvSW0mWTwaiO2pwFIoRg==}
     hasBin: true
@@ -2043,6 +2082,11 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+    dev: true
+
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /eastasianwidth@0.2.0:

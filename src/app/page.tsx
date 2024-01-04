@@ -4,6 +4,7 @@ import DumpGallery from "./dumpGallery/galleryFetch";
 import DumpForm from "./dumpform";
 import HeroSection from "@/components/landing-components/hero-section";
 import { Suspense } from "react";
+import { DumpSkeletonWrapper } from "@/components/skeletons/dumpskeleton";
 
 export default async function HomePage() {
   const auth = await getServerAuthSession();
@@ -24,7 +25,7 @@ export default async function HomePage() {
       </div>
       <div className="mt-8 flex md:w-[60%] w-full flex-col gap-8">
         <div className="mt-2">
-          <Suspense fallback={<>Loading</>}>
+          <Suspense fallback={<DumpSkeletonWrapper />}>
             <DumpGallery/>
           </Suspense>
         </div>
