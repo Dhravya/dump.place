@@ -47,7 +47,7 @@ export default async function Page({
 
   return (
     <div className="item-center flex justify-center">
-      <div className="w-96 max-w-2xl">
+      <div className="max-w-2xl">
         <div className="flex flex-col items-center justify-center">
           <Avatar className="h-24 w-24">
             <AvatarImage loading="lazy" src={`/@${user.username}/pfp`} />

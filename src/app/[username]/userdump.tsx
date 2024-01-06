@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import DeleteButton from "./DeleteButton";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { type Dumps, type User } from "@prisma/client";
-import { type Session } from "next-auth";
-import { useEffect, useRef, useState } from "react";
-import { deleteDump } from "../actions";
+import DeleteButton from './DeleteButton';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { type Dumps, type User } from '@prisma/client';
+import { type Session } from 'next-auth';
+import { useEffect, useRef, useState } from 'react';
+import { deleteDump } from '../actions';
 
 const UserDump = ({
   dump,
@@ -46,23 +46,23 @@ const UserDump = ({
       ],
       {
         duration: 200,
-        easing: "ease-in-out",
-        fill: "forwards",
+        easing: 'ease-in-out',
+        fill: 'forwards',
       },
     );
 
     setTimeout(() => {
-      lid.current?.classList.remove("open");
+      lid.current?.classList.remove('open');
     }, 200);
 
     setTimeout(() => {
-      ball.current?.classList.add("gone");
+      ball.current?.classList.add('gone');
     }, 300);
 
     setTimeout(() => {
       void deleteDump(dump.id);
       setDeleteConfirmation(false);
-      _dump.current!.style.display = "none";
+      _dump.current!.style.display = 'none';
     }, 700);
   }
 
@@ -75,17 +75,17 @@ const UserDump = ({
     const x = dmp.left + dmp.width / 2 - bin.left - bin.width / 2;
     const y = dmp.top + (100 * 3) / 4 - bin.top - bin.height / 2;
 
-    lid.current.parentElement!.style.setProperty("--x", `${x}px`);
-    lid.current.parentElement!.style.setProperty("--y", `${y}px`);
+    lid.current.parentElement!.style.setProperty('--x', `${x}px`);
+    lid.current.parentElement!.style.setProperty('--y', `${y}px`);
   }
 
   useEffect(() => {
     dumpPosition();
 
-    window.addEventListener("resize", dumpPosition);
+    window.addEventListener('resize', dumpPosition);
 
     return () => {
-      window.removeEventListener("resize", dumpPosition);
+      window.removeEventListener('resize', dumpPosition);
     };
   }, []);
 
@@ -94,22 +94,22 @@ const UserDump = ({
       <div
         ref={_dump}
         className={`dump mt-8 rounded-xl border p-5 pt-4 ${
-          deleteConfirmation && "confirm-delete"
+          deleteConfirmation && 'confirm-delete'
         } flex-col items-start justify-start gap-2 rounded-2xl border-[0.1px] border-black/50  bg-gradient-to-tr from-purple-400/10 via-gray-500/5 to-transparent p-4 px-7  py-5  shadow-zinc-500 transition-[border-color] dark:border-white/20 dark:shadow-purple-400 dark:hover:border-white/50`}
       >
         <div className="flex items-center justify-between gap-2">
           <div
-            className={`flex flex-col ${deleteConfirmation ? "invisible" : ""}`}
+            className={`flex flex-col ${deleteConfirmation ? 'invisible' : ''}`}
           >
             <div className="flex text-sm text-gray-500 dark:text-gray-400">
-              {new Date(dump.createdAt).toLocaleString("en-US", {
-                day: "numeric",
-                month: "long",
+              {new Date(dump.createdAt).toLocaleString('en-US', {
+                day: 'numeric',
+                month: 'long',
               })}
-              {"  "}
-              {new Date(dump.createdAt).toLocaleString("en-US", {
-                hour: "numeric",
-                minute: "numeric",
+              {'  '}
+              {new Date(dump.createdAt).toLocaleString('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
                 hour12: true,
               })}
 
@@ -145,18 +145,18 @@ const UserDump = ({
           )}
         </div>
         <div
-          className={`text-md prose prose-slate mt-4 text-white prose-h1:text-xl prose-h2:text-lg prose-img:rounded-md ${
-            deleteConfirmation ? "invisible" : ""
+          className={`dumpMarkdown ${
+            deleteConfirmation ? 'invisible' : ''
           }`}
         >
           <Markdown remarkPlugins={[remarkGfm]}>{dump.content}</Markdown>
         </div>
         <button
           onClick={yesDeleteIt}
-          onMouseEnter={() => lid.current?.classList.add("open")}
-          onMouseLeave={() => lid.current?.classList.remove("open")}
+          onMouseEnter={() => lid.current?.classList.add('open')}
+          onMouseLeave={() => lid.current?.classList.remove('open')}
           className={`${
-            deleteConfirmation && "on"
+            deleteConfirmation && 'on'
           } confirm-btn-y absolute left-[25%] top-[75%] -translate-y-1/2 md:left-[30%]`}
         >
           yes
@@ -164,7 +164,7 @@ const UserDump = ({
         <button
           onClick={() => setDeleteConfirmation(false)}
           className={`${
-            deleteConfirmation && "on"
+            deleteConfirmation && 'on'
           } confirm-btn-n absolute right-[25%] top-[75%] -translate-y-1/2 md:right-[30%]`}
         >
           no

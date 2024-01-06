@@ -185,3 +185,7 @@
 .confirm-btn-n {
   @apply bg-primary/20 text-primary md:text-inherit md:bg-transparent md:hover:bg-primary/20 md:hover:text-primary;
 }
+
+.dumpMarkdown {
+  @apply text-base prose prose-slate text-white prose-h1:text-2xl prose-h2:text-lg prose-img:rounded-md prose-li:marker:text-white
+}
