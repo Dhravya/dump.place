@@ -148,24 +148,10 @@ export async function createDump(dump: string, isPublic = true) {
     };
   }
 
-  const authuser = await db.user.findUnique({
-    where: {
-      id: auth.user.id,
-    },
-  });
-
-  if (!authuser) {
-    return {
-      status: 404,
-      body: {
-        error: "Auth User not found.",
-      },
-    };
-  }
 
   const dumps = await db.dumps.findMany({
     where: {
-      createdById: authuser.id,
+      createdById: auth.user.id,
       createdAt: {
         gt: new Date(Date.now() - 120000),
       },
@@ -196,7 +182,7 @@ export async function createDump(dump: string, isPublic = true) {
   // Check if the user has made more than 2 dumps in the last 2 minutes
   let result;
   if (ratelimit) {
-    result = await ratelimit.limit(authuser.id);
+    result = await ratelimit.limit(auth.user.id);
     if (!result.success) {
       return {
         status: 429,
@@ -226,16 +212,16 @@ export async function createDump(dump: string, isPublic = true) {
     data: {
       content: dump,
       isPrivate: !isPublic,
-      createdByName: authuser.username ?? "Anonymous",
+      createdByName: auth.user.username ?? "Anonymous",
       createdBy: {
         connect: {
-          id: authuser.id,
+          id: auth.user.id,
         },
       },
     },
   });
 
-  revalidatePath(`/@${authuser.username}`);
+  revalidatePath(`/@${auth.user.username}`);
 
   return {
     status: 200,
@@ -287,7 +273,7 @@ export const deleteDump = async (id: number) => {
     };
   }
 
-  if (dump.createdById !== authuser.id) {
+  if (dump.createdById !== auth.user.id) {
     if (authuser.email != env.ADMIN_EMAIL) {
       return {
         status: 403,
