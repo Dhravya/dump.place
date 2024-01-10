@@ -4,6 +4,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DumpForm from "../dumpform";
 import UserDump from "./userdump";
+import { OptimisticDump } from "@/components/optimisticDump";
 
 export default async function Page({
   params,
@@ -53,8 +54,10 @@ export default async function Page({
             <AvatarImage loading="lazy" src={`/@${user.username}/pfp`} />
             <AvatarFallback>{user.username!.slice(0, 2)}</AvatarFallback>
           </Avatar>
-          <h1 className="mt-2 font-heading text-4xl font-bold md:text-5xl">{user.username}</h1>
-          <p className="text-md mt-4 text-slate-400 dark:text-slate-500 text-center">
+          <h1 className="mt-2 font-heading text-4xl font-bold md:text-5xl">
+            {user.username}
+          </h1>
+          <p className="text-md mt-4 text-center text-slate-400 dark:text-slate-500">
             {user.about}
           </p>
         </div>
@@ -64,13 +67,18 @@ export default async function Page({
           {dumps.length === 0 && auth?.user.id === user.id ? (
             <Info text="You don't have any dumps yet." />
           ) : dumps.length === 0 && auth?.user.id !== user.id ? (
-            <Info text={`${user.username} doesn't have any public dumps yet.`} />
+            <Info
+              text={`${user.username} doesn't have any public dumps yet.`}
+            />
           ) : null}
         </div>
 
         {auth?.user.id === user.id && <DumpForm />}
 
         <ul className="gap-4">
+          {auth?.user.id === user.id && (
+            <OptimisticDump user={user} auth={auth} />
+          )}
           {dumps.map((dump) => (
             <li className="w-full" key={dump.id}>
               <UserDump key={dump.id} {...{ dump, auth, user }} />
@@ -85,14 +93,24 @@ export default async function Page({
 function Info({ text }: { text: string }) {
   return (
     <>
-      <div className="bg-border rounded-md flex items-center px-3 py-2 gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-          <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+      <div className="flex items-center gap-1 rounded-md bg-border px-3 py-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-4 w-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+          />
         </svg>
 
         <p className="text-sm">{text}</p>
-
       </div>
     </>
-  )
+  );
 }
