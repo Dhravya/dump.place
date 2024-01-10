@@ -23,13 +23,13 @@ export default async function HomePage() {
           {auth?.user.username && <DumpForm />}
         </div>
       </div>
-      <div className="mt-8 flex md:w-[60%] w-full flex-col gap-8">
+      {/* <div className="mt-8 flex md:w-[60%] w-full flex-col gap-8">
         <div className="mt-2">
           <Suspense fallback={<DumpSkeletonWrapper />}>
             <DumpGallery/>
           </Suspense>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
