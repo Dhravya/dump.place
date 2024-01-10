@@ -1,10 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import ClaimUsernameForm from "@/components/ClaimUsernameForm";
-import DumpGallery from "./dumpGallery/galleryFetch";
 import DumpForm from "./dumpform";
 import HeroSection from "@/components/landing-components/hero-section";
-import { Suspense } from "react";
-import { DumpSkeletonWrapper } from "@/components/skeletons/dumpskeleton";
 
 export default async function HomePage() {
   const auth = await getServerAuthSession();
