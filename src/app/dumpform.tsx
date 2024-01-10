@@ -6,26 +6,22 @@ import { createDump } from './actions';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import remarkGfm from 'remark-gfm';
-import Markdown from 'react-markdown';
 import { Editor } from 'novel';
-import { type MDXEditorMethods } from '@mdxeditor/editor';
+import { Markdown } from 'tiptap-markdown';
 
 function DumpForm({ className }: { className?: string }) {
   const [isDumping, setIsDumping] = useState(false);
   const [dumpContent, setDumpContent] = useState(
     "What's on your mind? (Markdown is supported!)",
   );
-  const [isOutline, setIsOutline] = useState(false);
-  const inputRef = useRef<MDXEditorMethods>(null);
+  const dumpRef = useRef<HTMLDivElement>(null);
 
   const submitDump = async (e: FormEvent) => {
     e.preventDefault();
+    setDumpContent('');
 
     setIsDumping(true);
     document.querySelector('.loader')!.classList.add('loading');
-
-    const dump = inputRef.current?.getMarkdown() ?? dumpContent;
 
     const isPublic =
       (document.getElementById('isPrivate') as HTMLInputElement).getAttribute(
@@ -33,7 +29,7 @@ function DumpForm({ className }: { className?: string }) {
       ) == 'checked';
 
     const isValidDump =
-      dump
+      dumpContent
         .replaceAll(' ', '')
         .replaceAll(/\n/g, '')
         .replaceAll(/\t/g, '')
@@ -50,21 +46,22 @@ function DumpForm({ className }: { className?: string }) {
       document.querySelector('.loader')!.classList.remove('loading');
       return;
     }
-    const response = await createDump(dump, isPublic);
+    const response = await createDump(dumpContent, isPublic);
 
     if (response.body.error) {
       toast.error(response.body.error);
     }
 
-    // Clear input
-    setDumpContent('');
+    // TODO: DELETE THE ORIGINAL MESSAGE
+
+    toast.success('Dumped!');
     setIsDumping(false);
     document.querySelector('.loader')!.classList.add('complete');
     document.querySelector('.loader')!.classList.remove('loading');
 
     setTimeout(() => {
       document.querySelector('.loader')!.classList.remove('complete');
-    }, 1000);
+    }, 500);
   };
 
   // only allow the first element with _contentEditable_11eqz_352 to be visible
@@ -90,31 +87,17 @@ function DumpForm({ className }: { className?: string }) {
         }
       }}
     >
-      {!isOutline ? (
-        // <Textarea
-        //   ref={inputRef}
-        //   required
-        //   id="dumpcontent"
-        //   placeholder="What's on your mind?"
-        //   disabled={isDumping}
-        //   value={dumpContent}
-        //   onChange={(e) => {
-        //     setDumpContent(e.target.value);
-        //   }}
-        // />
-        <Editor
-          onDebouncedUpdate={(value) => {
-            setDumpContent(value?.getText() ?? '');
-            console.log(dumpContent);
-          }}
-          disableLocalStorage
-          className="w-full rounded-2xl border-[0.1px] border-black/50  bg-gradient-to-tr from-purple-400/10 via-gray-500/5 to-transparent shadow-zinc-500 transition-[border-color] dark:border-white/20 dark:shadow-purple-400 dark:hover:border-white/50"
-        />
-      ) : (
-        <Markdown className="dumpMarkdown" remarkPlugins={[remarkGfm]}>
-          {dumpContent}
-        </Markdown>
-      )}
+      <Editor
+        onUpdate={(value) => {
+          if (!value) return;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+          setDumpContent(value.storage.markdown.getMarkdown() as string);
+        }}
+        className="w-full rounded-2xl border-[0.1px] border-black/50  bg-gradient-to-tr from-purple-400/10 via-gray-500/5 to-transparent shadow-zinc-500 transition-[border-color] dark:border-white/20 dark:shadow-purple-400 dark:hover:border-white/50"
+        defaultValue={''}
+        disableLocalStorage
+        extensions={[Markdown]}
+      />
       <div className="mt-4 flex  justify-between">
         <div className="flex items-center gap-2">
           <Switch defaultChecked={true} id="isPrivate" disabled={isDumping} />
@@ -123,15 +106,7 @@ function DumpForm({ className }: { className?: string }) {
         </div>
 
         <div className="flex gap-2">
-          <Button
-            type="button"
-            variant={isOutline ? 'secondary' : 'ghost'}
-            onClick={() => setIsOutline((prev) => !prev)}
-          >
-            Preview
-          </Button>
-
-          <Button type="submit" disabled={isDumping || isOutline}>
+          <Button variant={'secondary'} type="submit" disabled={isDumping}>
             Dump
           </Button>
         </div>

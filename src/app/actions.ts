@@ -193,21 +193,6 @@ export async function createDump(dump: string, isPublic = true) {
     }
   }
 
-  if (isPublic) {
-    const isOk = await moderate(dump) as string;
-
-    console.log(isOk)
-
-    if (isOk.includes("SPAM")) {
-      return {
-        status: 400,
-        body: {
-          error: "Your dump was not approved by automod.",
-        },
-      };
-    }
-  }
-
   const newDump = await db.dumps.create({
     data: {
       content: dump,
