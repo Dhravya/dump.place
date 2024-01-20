@@ -63,7 +63,7 @@ export default function RootLayout({
         ></script>
       </head>
       <body
-        className={`dark overflow-x-hidden overflow-y-autofont-sans ${inter.variable} ${fontHeaderAlt.variable} ${fontHeading.variable} ${fontSubHeading.variable}`}
+        className={`dark overflow-x-hidden overflow-y-auto font-sans ${inter.variable} ${fontHeaderAlt.variable} ${fontHeading.variable} ${fontSubHeading.variable}`}
       >
         <div className="loader" />
 
